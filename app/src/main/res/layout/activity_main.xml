@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|top"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/normal1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="单级单选（最常见）" />
+
+        <Button
+            android:id="@+id/normal2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="单选多级（最后一级可点击）" />
+
+        <Button
+            android:id="@+id/normal3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="单选多级(任何一级都可点击选择)" />
+
+        <Button
+            android:id="@+id/normal4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多选单级" />
+
+        <Button
+            android:id="@+id/normal5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多选多级" />
+
+        <Button
+            android:id="@+id/normal6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="限制排序多选单级" />
+
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
