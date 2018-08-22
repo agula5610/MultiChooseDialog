@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -110,6 +111,7 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
         iv_top = view.findViewById(R.id.iv_top);
         tv_title = view.findViewById(R.id.tv_title);
         recyclerview = view.findViewById(R.id.recyclerview);
+        recyclerview.setLayoutManager(new LinearLayoutManager(mActivity));
         ll_onclick = view.findViewById(R.id.ll_onclick);
         btn_cancel = view.findViewById(R.id.btn_cancel);
         btn_confirm = view.findViewById(R.id.btn_confirm);
@@ -122,8 +124,7 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
         dialogWindow.setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        lp.height = (int) (displayMetrics.heightPixels * 0.76f);
-        lp.width = (int) (displayMetrics.widthPixels * 0.76f);
+        lp.width = (int) (displayMetrics.widthPixels * 0.68f);
         dialogWindow.setAttributes(lp);
         initData();
     }
@@ -162,6 +163,7 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
                 mAdapter = new MultiOrderTreeRecyclerAdapter(recyclerview, mActivity,
                         mDatas, R.drawable.pullup, R.drawable.pulldown, dialogBean.getLimited());
             }
+            recyclerview.setAdapter(mAdapter);
             initClickEvents();
         }
     }

@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:text=""
+                android:textColor="@color/standardContentText"
                 android:textSize="18dp" />
 
             <TextView
@@ -46,7 +46,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text=""
                 android:textColor="@color/colorAccent"
                 android:textSize="14dp"
                 android:visibility="gone" />

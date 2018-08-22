@@ -38,10 +38,10 @@ public class MultiSelectionDialogManager {
     private int limited;//当排序选择时候的限制个数
 
     private MultiSelectionDialogManager(Builder builder) {
-        mActivity = builder.getmActivity();
+        mActivity = builder.getActivity();
         title = builder.getTitle();
         type = builder.getType();
-        mDatas = builder.getmDatas();
+        mDatas = builder.getDatas();
         onItemClickListener = builder.getOnItemClickListener();
 
         mThemeColor = builder.getmThemeColor();
@@ -104,11 +104,11 @@ public class MultiSelectionDialogManager {
         private OnClickListener onClickListener;
         private int limited;
 
-        public Activity getmActivity() {
+        public Activity getActivity() {
             return mActivity;
         }
 
-        public Builder setmActivity(Activity mActivity) {
+        public Builder setActivity(Activity mActivity) {
             this.mActivity = mActivity;
             return this;
         }
@@ -131,11 +131,11 @@ public class MultiSelectionDialogManager {
             return this;
         }
 
-        public List<Node> getmDatas() {
+        public List<Node> getDatas() {
             return mDatas;
         }
 
-        public Builder setmDatas(List<Node> mDatas) {
+        public Builder setDatas(List<Node> mDatas) {
             this.mDatas = mDatas;
             return this;
         }
@@ -196,7 +196,7 @@ public class MultiSelectionDialogManager {
 
         public MultiSelectionDialogManager build() {
             //校验
-            if (getmActivity() == null) {
+            if (getActivity() == null) {
                 throw new NullPointerException("必要参数不能为空");
             }
             return new MultiSelectionDialogManager(this);

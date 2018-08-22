@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.luxiaochun.multiselectiondialog.DialogType;
 import com.luxiaochun.multiselectiondialog.MultiSelectionDialogManager;
+import com.luxiaochun.multiselectiondialog.base.Node;
+import com.luxiaochun.multiselectiondialog.listener.OnItemClickListener;
 
 public class MainActivity extends AppCompatActivity {
     private Button normal1;
@@ -40,12 +43,16 @@ public class MainActivity extends AppCompatActivity {
                         .Builder()
                         //当前Activity
                         .setActivity(MainActivity.this)
-                        //更新地址
-                        .setUpdateUrl("http://gdown.baidu.com/data/wisegame/e8235a956b670f0e/baiduwangpan_610.apk")
-                        //实现httpManager接口的对象
-                        .setNewVersion("1.0")
-                        .build()
-                        .silenceUpdate();
+                        .setTitle("证件类型")
+                        .setCanceledOnTouchOutside(true)
+                        .setDatas(CardTypeEnum.getDatas())
+                        .setType(DialogType.SINGLE)
+                        .setOnItemClickListener(new OnItemClickListener() {
+                            @Override
+                            public void onClick(Node node, int position) {
+                            }
+                        })
+                        .build().show();
             }
         });
         normal2.setOnClickListener(new View.OnClickListener() {
