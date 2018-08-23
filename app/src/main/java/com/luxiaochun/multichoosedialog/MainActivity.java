@@ -58,7 +58,20 @@ public class MainActivity extends AppCompatActivity {
         normal2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                new MultiSelectionDialogManager
+                        .Builder()
+                        //当前Activity
+                        .setActivity(MainActivity.this)
+                        .setTitle("证件类型")
+                        .setCanceledOnTouchOutside(true)
+                        .setDatas(CardTypeEnum.getDatas())
+                        .setType(DialogType.SINGLE_BOTTOM)
+                        .setOnItemClickListener(new OnItemClickListener() {
+                            @Override
+                            public void onClick(Node node, int position) {
+                            }
+                        })
+                        .build().show();
             }
         });
         normal3.setOnClickListener(new View.OnClickListener() {

@@ -23,20 +23,18 @@ import com.luxiaochun.multiselectiondialog.DialogType;
 import com.luxiaochun.multiselectiondialog.MultiSelectionBean;
 import com.luxiaochun.multiselectiondialog.MultiSelectionDialogManager;
 import com.luxiaochun.multiselectiondialog.R;
-import com.luxiaochun.multiselectiondialog.adapter.CustomAbsTreeRecyclerAdapter;
-import com.luxiaochun.multiselectiondialog.adapter.MultiAllTreeRecyclerAdapter;
-import com.luxiaochun.multiselectiondialog.adapter.MultiOrderTreeRecyclerAdapter;
-import com.luxiaochun.multiselectiondialog.adapter.MultiTreeRecyclerAdapter;
-import com.luxiaochun.multiselectiondialog.adapter.SingleAllTreeRecyclerAdapter;
-import com.luxiaochun.multiselectiondialog.adapter.SingleBottomTreeRecyclerAdapter;
-import com.luxiaochun.multiselectiondialog.adapter.SingleTreeRecyclerAdapter;
+import com.luxiaochun.multiselectiondialog.adapter.TreeRecyclerAdapter;
 import com.luxiaochun.multiselectiondialog.base.Node;
+import com.luxiaochun.multiselectiondialog.cell.Cell;
+import com.luxiaochun.multiselectiondialog.cell.SingleBottomCell;
+import com.luxiaochun.multiselectiondialog.cell.SingleCell;
 import com.luxiaochun.multiselectiondialog.listener.OnClickListener;
 import com.luxiaochun.multiselectiondialog.listener.OnItemClickListener;
 import com.luxiaochun.multiselectiondialog.utils.ColorUtil;
 import com.luxiaochun.multiselectiondialog.utils.DrawableUtil;
 import com.luxiaochun.multiselectiondialog.utils.MultiDialogUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,7 +57,7 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
     private Button btn_cancel;
     private Button btn_confirm;
     private Activity mActivity;
-    private CustomAbsTreeRecyclerAdapter mAdapter;
+    private TreeRecyclerAdapter mAdapter;
 
     //默认色
     public static MultiSelectionDialogFragment newInstance(Bundle args) {
@@ -138,34 +136,20 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
             final String dialogTitle = dialogBean.getTitle();
             //标题
             tv_title.setText(dialogTitle);
-            DialogType type = dialogBean.getType();
             List<Node> mDatas = dialogBean.getmDatas();
-            if (DialogType.SINGLE.equals(type)) {
-                mAdapter = new SingleTreeRecyclerAdapter(recyclerview, mActivity,
-                        mDatas, R.drawable.pullup, R.drawable.pulldown, onItemClickListener);
-            } else if (DialogType.SINGLE_BOTTOM.equals(type)) {
-                mAdapter = new SingleBottomTreeRecyclerAdapter(recyclerview, mActivity,
-                        mDatas, R.drawable.pullup, R.drawable.pulldown, onItemClickListener);
-            } else if (DialogType.SINGLE_ALL.equals(type)) {
-                mAdapter = new SingleAllTreeRecyclerAdapter(recyclerview, mActivity,
-                        mDatas, R.drawable.pullup, R.drawable.pulldown, onItemClickListener);
-            } else if (DialogType.MULTI.equals(type)) {
-                ll_onclick.setVisibility(View.VISIBLE);
-                mAdapter = new MultiTreeRecyclerAdapter(recyclerview, mActivity,
-                        mDatas, R.drawable.pullup, R.drawable.pulldown);
-                final List<Node> list = mAdapter.getCheckedNodeList();
-            } else if (DialogType.MULTI_ALL.equals(type)) {
-                ll_onclick.setVisibility(View.VISIBLE);
-                mAdapter = new MultiAllTreeRecyclerAdapter(recyclerview, mActivity,
-                        mDatas, R.drawable.pullup, R.drawable.pulldown);
-            } else {
-                ll_onclick.setVisibility(View.VISIBLE);
-                mAdapter = new MultiOrderTreeRecyclerAdapter(recyclerview, mActivity,
-                        mDatas, R.drawable.pullup, R.drawable.pulldown, dialogBean.getLimited());
-            }
+            mAdapter = new TreeRecyclerAdapter(mDatas, R.drawable.pullup, R.drawable.pulldown);
+            mAdapter.setData(getCells(mDatas));
             recyclerview.setAdapter(mAdapter);
             initClickEvents();
         }
+    }
+
+    public TreeRecyclerAdapter getmAdapter() {
+        return mAdapter;
+    }
+
+    public void setmAdapter(TreeRecyclerAdapter mAdapter) {
+        this.mAdapter = mAdapter;
     }
 
     /**
@@ -213,12 +197,36 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
         btn_confirm.setOnClickListener(this);
     }
 
+    protected List<Cell> getCells(List<Node> list) {
+        List<Cell> cells = new ArrayList<>();
+        DialogType type = dialogBean.getType();
+        for (int i = 0; i < list.size(); i++) {
+            Node node = list.get(i);
+            if (DialogType.SINGLE.equals(type)) {
+                cells.add(new SingleCell(MultiSelectionDialogFragment.this,
+                        node, onItemClickListener));
+            } else if (DialogType.SINGLE_BOTTOM.equals(type)) {
+                cells.add(new SingleBottomCell(MultiSelectionDialogFragment.this,
+                        node, onItemClickListener));
+            } else if (DialogType.SINGLE_ALL.equals(type)) {
+
+            } else if (DialogType.MULTI.equals(type)) {
+
+            } else if (DialogType.MULTI_ALL.equals(type)) {
+
+            } else if (DialogType.MULTI_ORDER.equals(type)) {
+
+            }
+        }
+        return cells;
+    }
+
     @Override
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.btn_confirm) {
             if (onClickListener != null) {
-                onClickListener.onPositive(mAdapter.getCheckedNodeList());
+//                onClickListener.onPositive(mAdapter.getCheckedNodeList());
             }
         } else if (i == R.id.btn_cancel) {
             if (onClickListener != null) {

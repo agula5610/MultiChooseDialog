@@ -1,20 +1,17 @@
-package com.luxiaochun.multiselectiondialog.base;
+package com.luxiaochun.multiselectiondialog.adapter;
 
-import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import com.luxiaochun.multiselectiondialog.base.Node;
+import com.luxiaochun.multiselectiondialog.base.TreeHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TreeRecyclerAdapter extends RVBaseAdapter{
 
-    protected Context mContext;
     /**
      * 存储所有可见的Node
      */
     protected List<Node> mVisibleNodes = new ArrayList<>();
-    protected LayoutInflater mInflater;
 
     /**
      * 存储所有的Node
@@ -26,17 +23,10 @@ public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
      */
     private int iconExpand = -1, iconNoExpand = -1;
 
-    public TreeRecyclerAdapter(RecyclerView mTree, Context context, List<Node> datas, int iconExpand, int iconNoExpand) {
+    public TreeRecyclerAdapter(List<Node> datas, int iconExpand, int iconNoExpand) {
 
         this.iconExpand = iconExpand;
         this.iconNoExpand = iconNoExpand;
-
-        for (Node node : datas) {
-            node.getChildren().clear();
-            node.iconExpand = iconExpand;
-            node.iconNoExpand = iconNoExpand;
-        }
-        mContext = context;
         /**
          * 对所有的Node进行排序
          */
@@ -49,18 +39,6 @@ public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
          * 过滤出可见的Node
          */
         mVisibleNodes = TreeHelper.filterVisibleNode(mAllNodes);
-        mInflater = LayoutInflater.from(context);
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        Node node = mVisibleNodes.get(position);
-        // 设置内边距
-        holder.itemView.setPadding(node.getLevel() * 30, 3, 3, 3);
-        /**
-         * 设置节点点击时，可以展开以及关闭,将事件继续往外公布
-         */
-        onBindViewHolder(node, holder, position);
     }
 
     @Override
@@ -169,6 +147,4 @@ public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
                 setNodeParentChecked(node.getParent(), checked);
         }
     }
-
-    public abstract void onBindViewHolder(Node node, RecyclerView.ViewHolder holder, final int position);
 }

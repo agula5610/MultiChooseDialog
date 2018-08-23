@@ -1,7 +1,5 @@
 package com.luxiaochun.multiselectiondialog.base;
 
-import com.luxiaochun.multiselectiondialog.base.Node;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class TreeHelper {
      */
     public static List<Node> getSortedNodes(List<Node> datas) {
         List<Node> result = new ArrayList<>();
-        // 设置Node间父子关系
+        // 将数据转化成根节点关系
         List<Node> nodes = convetData2Node(datas);
         // 拿到根节点
         List<Node> rootNodes = getRootNodes(nodes);
@@ -96,12 +94,14 @@ public class TreeHelper {
      * @param node
      */
     private static void setNodeIcon(Node node) {
-        if (node.getChildren().size() > 0 && node.isExpand()) {
-            node.setIcon(node.iconExpand);
-        } else if (node.getChildren().size() > 0 && !node.isExpand()) {
-            node.setIcon(node.iconNoExpand);
-        } else {
+        if (node.isLeaf()) {
             node.setIcon(-1);
+        } else {
+            if (node.isExpand()) {
+                node.setIcon(node.iconExpand);
+            } else {
+                node.setIcon(node.iconNoExpand);
+            }
         }
     }
 
