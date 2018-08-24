@@ -96,7 +96,7 @@ public class MultiSelectionDialogManager {
         private String title;
         private DialogType type;
         private List<Node> mDatas;
-        private boolean canceledOnTouchOutside;
+        private boolean canceledOnTouchOutside = true;
         private int mThemeColor = -1;//主题颜色
         @DrawableRes
         private int mTopPic = -1;//顶部图片

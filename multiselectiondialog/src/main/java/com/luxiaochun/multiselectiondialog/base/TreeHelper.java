@@ -1,5 +1,7 @@
 package com.luxiaochun.multiselectiondialog.base;
 
+import com.luxiaochun.multiselectiondialog.adapter.TreeRecyclerAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,9 +100,9 @@ public class TreeHelper {
             node.setIcon(-1);
         } else {
             if (node.isExpand()) {
-                node.setIcon(node.iconExpand);
+                node.setIcon(TreeRecyclerAdapter.iconCollapse);
             } else {
-                node.setIcon(node.iconNoExpand);
+                node.setIcon(TreeRecyclerAdapter.iconExpand);
             }
         }
     }

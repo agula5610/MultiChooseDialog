@@ -1,5 +1,6 @@
 package com.luxiaochun.multiselectiondialog.viewholder;
 
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
@@ -49,6 +50,10 @@ public class RVBaseViewHolder extends RecyclerView.ViewHolder {
     }
 
     public Button getButton(int resId){
+        return retrieveView(resId);
+    }
+
+    public AppCompatCheckBox getCheckBox(int resId){
         return retrieveView(resId);
     }
 

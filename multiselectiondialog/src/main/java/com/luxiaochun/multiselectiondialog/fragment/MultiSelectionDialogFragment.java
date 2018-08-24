@@ -23,18 +23,18 @@ import com.luxiaochun.multiselectiondialog.DialogType;
 import com.luxiaochun.multiselectiondialog.MultiSelectionBean;
 import com.luxiaochun.multiselectiondialog.MultiSelectionDialogManager;
 import com.luxiaochun.multiselectiondialog.R;
+import com.luxiaochun.multiselectiondialog.adapter.MultiAdapter;
+import com.luxiaochun.multiselectiondialog.adapter.SingleAdapter;
+import com.luxiaochun.multiselectiondialog.adapter.SingleAllAdapter;
+import com.luxiaochun.multiselectiondialog.adapter.SingleBottomAdapter;
 import com.luxiaochun.multiselectiondialog.adapter.TreeRecyclerAdapter;
 import com.luxiaochun.multiselectiondialog.base.Node;
-import com.luxiaochun.multiselectiondialog.cell.Cell;
-import com.luxiaochun.multiselectiondialog.cell.SingleBottomCell;
-import com.luxiaochun.multiselectiondialog.cell.SingleCell;
 import com.luxiaochun.multiselectiondialog.listener.OnClickListener;
 import com.luxiaochun.multiselectiondialog.listener.OnItemClickListener;
 import com.luxiaochun.multiselectiondialog.utils.ColorUtil;
 import com.luxiaochun.multiselectiondialog.utils.DrawableUtil;
 import com.luxiaochun.multiselectiondialog.utils.MultiDialogUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -137,8 +137,20 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
             //标题
             tv_title.setText(dialogTitle);
             List<Node> mDatas = dialogBean.getmDatas();
-            mAdapter = new TreeRecyclerAdapter(mDatas, R.drawable.pullup, R.drawable.pulldown);
-            mAdapter.setData(getCells(mDatas));
+            DialogType type = dialogBean.getType();
+            if (DialogType.SINGLE.equals(type)) {
+                mAdapter = new SingleAdapter(MultiSelectionDialogFragment.this, mDatas, R.drawable.pullup, R.drawable.pulldown, onItemClickListener);
+            } else if (DialogType.SINGLE_BOTTOM.equals(type)) {
+                mAdapter = new SingleBottomAdapter(MultiSelectionDialogFragment.this, mDatas, R.drawable.list_expand, R.drawable.list_collapse, onItemClickListener);
+            } else if (DialogType.SINGLE_ALL.equals(type)) {
+                mAdapter = new SingleAllAdapter(MultiSelectionDialogFragment.this, mDatas, R.drawable.list_expand, R.drawable.list_collapse, onItemClickListener);
+            } else if (DialogType.MULTI.equals(type)) {
+                mAdapter = new MultiAdapter(mDatas);
+            } else if (DialogType.MULTI_ALL.equals(type)) {
+
+            } else if (DialogType.MULTI_ORDER.equals(type)) {
+
+            }
             recyclerview.setAdapter(mAdapter);
             initClickEvents();
         }
@@ -195,30 +207,6 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
     private void initClickEvents() {
         btn_cancel.setOnClickListener(this);
         btn_confirm.setOnClickListener(this);
-    }
-
-    protected List<Cell> getCells(List<Node> list) {
-        List<Cell> cells = new ArrayList<>();
-        DialogType type = dialogBean.getType();
-        for (int i = 0; i < list.size(); i++) {
-            Node node = list.get(i);
-            if (DialogType.SINGLE.equals(type)) {
-                cells.add(new SingleCell(MultiSelectionDialogFragment.this,
-                        node, onItemClickListener));
-            } else if (DialogType.SINGLE_BOTTOM.equals(type)) {
-                cells.add(new SingleBottomCell(MultiSelectionDialogFragment.this,
-                        node, onItemClickListener));
-            } else if (DialogType.SINGLE_ALL.equals(type)) {
-
-            } else if (DialogType.MULTI.equals(type)) {
-
-            } else if (DialogType.MULTI_ALL.equals(type)) {
-
-            } else if (DialogType.MULTI_ORDER.equals(type)) {
-
-            }
-        }
-        return cells;
     }
 
     @Override

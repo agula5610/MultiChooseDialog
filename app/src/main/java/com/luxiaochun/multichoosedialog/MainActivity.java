@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.luxiaochun.multiselectiondialog.DialogType;
 import com.luxiaochun.multiselectiondialog.MultiSelectionDialogManager;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                         .setOnItemClickListener(new OnItemClickListener() {
                             @Override
                             public void onClick(Node node, int position) {
+                                Toast.makeText(MainActivity.this, node.getName(), Toast.LENGTH_SHORT).show();
                             }
                         })
                         .build().show();
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                         .setOnItemClickListener(new OnItemClickListener() {
                             @Override
                             public void onClick(Node node, int position) {
+                                Toast.makeText(MainActivity.this, node.getName(), Toast.LENGTH_SHORT).show();
                             }
                         })
                         .build().show();
@@ -77,13 +80,35 @@ public class MainActivity extends AppCompatActivity {
         normal3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                new MultiSelectionDialogManager
+                        .Builder()
+                        //当前Activity
+                        .setActivity(MainActivity.this)
+                        .setTitle("证件类型")
+                        .setCanceledOnTouchOutside(true)
+                        .setDatas(CardTypeEnum.getDatas())
+                        .setType(DialogType.SINGLE_ALL)
+                        .setOnItemClickListener(new OnItemClickListener() {
+                            @Override
+                            public void onClick(Node node, int position) {
+                                Toast.makeText(MainActivity.this, node.getName(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .build().show();
             }
         });
         normal4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                new MultiSelectionDialogManager
+                        .Builder()
+                        //当前Activity
+                        .setActivity(MainActivity.this)
+                        .setTitle("证件类型")
+                        .setCanceledOnTouchOutside(true)
+                        .setDatas(CardTypeEnum.getDatas())
+                        .setType(DialogType.MULTI)
+                        .build().show();
             }
         });
         normal5.setOnClickListener(new View.OnClickListener() {

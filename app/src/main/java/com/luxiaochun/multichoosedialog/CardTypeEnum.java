@@ -12,8 +12,8 @@ import java.util.List;
 public enum CardTypeEnum {
     OFFICER_CARD("1", "", "军官证"),
     SOLDIER_CARD("2", "", "士兵证"),
-    SOLDIER_CARD1("21", "2", "士兵证1"),
-    SOLDIER_CARD2("22", "2", "士兵证2"),
+    SOLDIER_CARD1("21", "", "士兵证1"),
+    SOLDIER_CARD2("22", "", "士兵证2"),
     SHENFEN_CARD("3", "", "身份证"),
     OTHER_CARD("9", "", "其他");
 

@@ -1,32 +1,29 @@
 package com.luxiaochun.multiselectiondialog.adapter;
 
+import android.support.v7.widget.RecyclerView;
+
 import com.luxiaochun.multiselectiondialog.base.Node;
 import com.luxiaochun.multiselectiondialog.base.TreeHelper;
+import com.luxiaochun.multiselectiondialog.viewholder.RVBaseViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class TreeRecyclerAdapter extends RVBaseAdapter{
-
+public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RVBaseViewHolder> {
     /**
      * 存储所有可见的Node
      */
-    protected List<Node> mVisibleNodes = new ArrayList<>();
+    protected List<Node> mVisibleNodes;
 
     /**
      * 存储所有的Node
      */
-    protected List<Node> mAllNodes = new ArrayList<>();
+    protected List<Node> mAllNodes;
 
-    /**
-     * 展开与关闭的图片
-     */
-    private int iconExpand = -1, iconNoExpand = -1;
-
-    public TreeRecyclerAdapter(List<Node> datas, int iconExpand, int iconNoExpand) {
-
+    public static int iconExpand;
+    public static int iconCollapse;
+    public TreeRecyclerAdapter(List<Node> datas, int iconExpand, int iconCollapse) {
         this.iconExpand = iconExpand;
-        this.iconNoExpand = iconNoExpand;
+        this.iconCollapse = iconCollapse;
         /**
          * 对所有的Node进行排序
          */
@@ -39,6 +36,17 @@ public class TreeRecyclerAdapter extends RVBaseAdapter{
          * 过滤出可见的Node
          */
         mVisibleNodes = TreeHelper.filterVisibleNode(mAllNodes);
+    }
+
+    @Override
+    public void onBindViewHolder(RVBaseViewHolder holder, final int position) {
+        Node node = mVisibleNodes.get(position);
+        // 设置内边距
+        holder.itemView.setPadding(node.getLevel() * 30, 3, 3, 3);
+        /**
+         * 设置节点点击时，可以展开以及关闭,将事件继续往外公布
+         */
+        onBindViewHolder(node, holder, position);
     }
 
     @Override
@@ -147,4 +155,6 @@ public class TreeRecyclerAdapter extends RVBaseAdapter{
                 setNodeParentChecked(node.getParent(), checked);
         }
     }
+
+    public abstract void onBindViewHolder(Node node, RVBaseViewHolder holder, final int position);
 }

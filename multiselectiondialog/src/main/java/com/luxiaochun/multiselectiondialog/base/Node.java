@@ -13,40 +13,30 @@ public class Node<T, B> implements Serializable{
      * 传入的实体对象
      */
     public B bean;
-    /**
-     * 设置开启 关闭的图片
-     */
-    public int iconExpand = -1, iconNoExpand = -1;
 
     private T id;
     /**
      * 根节点pId为0
      */
     private T pId;
-
     private String name;
-
     /**
      * 当前的级别
      */
     private int level;
-
     /**
      * 是否可见
      */
     private boolean isVisible = false;
     /**
-     * 是否可见
+     * 是否展开
      */
     private boolean isExpand = false;
-
     private int icon = -1;
-
     /**
      * 下一级的子Node
      */
     private List<Node> children = new ArrayList<>();
-
     /**
      * 父Node
      */
@@ -55,23 +45,10 @@ public class Node<T, B> implements Serializable{
      * 多选是否被checked选中
      */
     private boolean isChecked;
-
-    /**
-     * 单选是否被点击选中
-     */
-    private boolean isChoosed;
     /**
      * 根node的字体大小
      */
     public static float textSize;
-
-    public boolean isChoosed() {
-        return isChoosed;
-    }
-
-    public void setChoosed(boolean choosed) {
-        isChoosed = choosed;
-    }
 
     public boolean isChecked() {
         return isChecked;
