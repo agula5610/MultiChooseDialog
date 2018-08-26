@@ -8,6 +8,7 @@ import com.luxiaochun.multiselectiondialog.base.Node;
 import com.luxiaochun.multiselectiondialog.base.TreeHelper;
 import com.luxiaochun.multiselectiondialog.viewholder.RVBaseViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RVBaseViewHolder> {
@@ -156,6 +157,21 @@ public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RVBaseVie
             if (node.getParent() != null)
                 setNodeParentChecked(node.getParent(), checked);
         }
+    }
+
+    /**
+     * 获取到所有选中的Node
+     *
+     * @return
+     */
+    public List<Node> getCheckedNodeList() {
+        List<Node> list = new ArrayList<>();
+        for (Node node : mAllNodes) {
+            if (node.isChecked()) {
+                list.add(node);
+            }
+        }
+        return list;
     }
 
     public abstract void onBindViewHolder(Node node, RVBaseViewHolder holder, final int position);

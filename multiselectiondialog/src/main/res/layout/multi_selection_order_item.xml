@@ -39,14 +39,6 @@
                 android:textColor="@color/standardContentText"
                 android:textSize="20dp" />
 
-            <TextView
-                android:id="@+id/id_treenode_order"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:textColor="@color/colorAccent"
-                android:textSize="14dp"
-                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -56,11 +48,13 @@
             android:paddingLeft="12dp"
             android:paddingRight="12dp">
 
-            <android.support.v7.widget.AppCompatCheckBox
-                android:id="@+id/cb_select_tree"
+            <TextView
+                android:id="@+id/id_treenode_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:theme="@style/AppCompatCheckBox"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="14dp"
                 android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>

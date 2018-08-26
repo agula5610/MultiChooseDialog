@@ -24,6 +24,8 @@ import com.luxiaochun.multiselectiondialog.MultiSelectionBean;
 import com.luxiaochun.multiselectiondialog.MultiSelectionDialogManager;
 import com.luxiaochun.multiselectiondialog.R;
 import com.luxiaochun.multiselectiondialog.adapter.MultiAdapter;
+import com.luxiaochun.multiselectiondialog.adapter.MultiAllAdapter;
+import com.luxiaochun.multiselectiondialog.adapter.MultiOrderAdapter;
 import com.luxiaochun.multiselectiondialog.adapter.SingleAdapter;
 import com.luxiaochun.multiselectiondialog.adapter.SingleAllAdapter;
 import com.luxiaochun.multiselectiondialog.adapter.SingleBottomAdapter;
@@ -144,10 +146,14 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
             } else if (DialogType.SINGLE_ALL.equals(type)) {
                 mAdapter = new SingleAllAdapter(MultiSelectionDialogFragment.this, mDatas, R.drawable.list_expand, R.drawable.list_collapse, onItemClickListener);
             } else if (DialogType.MULTI.equals(type)) {
+                ll_onclick.setVisibility(View.VISIBLE);
                 mAdapter = new MultiAdapter(mDatas);
             } else if (DialogType.MULTI_ALL.equals(type)) {
-
+                ll_onclick.setVisibility(View.VISIBLE);
+                mAdapter = new MultiAllAdapter(mDatas, R.drawable.list_expand, R.drawable.list_collapse);
             } else if (DialogType.MULTI_ORDER.equals(type)) {
+                ll_onclick.setVisibility(View.VISIBLE);
+                mAdapter = new MultiOrderAdapter(mDatas, 6);
 
             }
             recyclerview.setAdapter(mAdapter);
@@ -213,7 +219,7 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
         int i = view.getId();
         if (i == R.id.btn_confirm) {
             if (onClickListener != null) {
-//                onClickListener.onPositive(mAdapter.getCheckedNodeList());
+                onClickListener.onPositive(mAdapter.getCheckedNodeList());
             }
         } else if (i == R.id.btn_cancel) {
             if (onClickListener != null) {
