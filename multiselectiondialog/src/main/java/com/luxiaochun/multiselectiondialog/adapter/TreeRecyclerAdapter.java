@@ -1,6 +1,8 @@
 package com.luxiaochun.multiselectiondialog.adapter;
 
+import android.nfc.Tag;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.luxiaochun.multiselectiondialog.base.Node;
 import com.luxiaochun.multiselectiondialog.base.TreeHelper;
@@ -46,6 +48,7 @@ public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RVBaseVie
         /**
          * 设置节点点击时，可以展开以及关闭,将事件继续往外公布
          */
+        Log.i("TreeRecyclerAdapter====",node.getName()+"===="+node.isChecked());
         onBindViewHolder(node, holder, position);
     }
 
@@ -111,19 +114,18 @@ public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RVBaseVie
     }
 
     /**
-     * 设置是否选中
+     * 设置子节点的选中状态，根节点被选中，则所有子节点都被选中；
+     * 同理，若被取消，则所有子节点也被取消
      *
      * @param node
      * @param checked
      */
     public <T, B> void setChildChecked(Node<T, B> node, boolean checked) {
         if (!node.isLeaf()) {
-            node.setChecked(checked);
             for (Node childrenNode : node.getChildren()) {
+                childrenNode.setChecked(checked);
                 setChildChecked(childrenNode, checked);
             }
-        } else {
-            node.setChecked(checked);
         }
     }
 

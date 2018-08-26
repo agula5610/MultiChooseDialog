@@ -59,7 +59,6 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
     private Activity mActivity;
     private TreeRecyclerAdapter mAdapter;
 
-    //默认色
     public static MultiSelectionDialogFragment newInstance(Bundle args) {
         MultiSelectionDialogFragment fragment = new MultiSelectionDialogFragment();
         if (args != null) {

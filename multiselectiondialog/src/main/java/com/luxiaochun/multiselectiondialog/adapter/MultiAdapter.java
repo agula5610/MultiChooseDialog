@@ -1,5 +1,6 @@
 package com.luxiaochun.multiselectiondialog.adapter;
 
+import android.util.Log;
 import android.view.View;
 
 import com.luxiaochun.multiselectiondialog.R;
