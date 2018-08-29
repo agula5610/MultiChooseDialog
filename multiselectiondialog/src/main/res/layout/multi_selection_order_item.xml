@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:textColor="@color/colorAccent"
-                android:textSize="14dp"/>
+                android:textSize="16dp"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
