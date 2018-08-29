@@ -23,7 +23,7 @@ public class MultiAllAdapter extends AbsTreeRecyclerAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.multi_selection_item2;
+        return R.layout.multi_selection_item;
     }
 
     @Override

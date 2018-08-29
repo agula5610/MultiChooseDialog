@@ -1,6 +1,5 @@
 package com.luxiaochun.multiselectiondialog.adapter;
 
-import android.util.Log;
 import android.view.View;
 
 import com.luxiaochun.multiselectiondialog.R;
@@ -23,7 +22,7 @@ public class MultiAdapter extends AbsTreeRecyclerAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.multi_selection_item2;
+        return R.layout.multi_selection_item;
     }
 
     @Override

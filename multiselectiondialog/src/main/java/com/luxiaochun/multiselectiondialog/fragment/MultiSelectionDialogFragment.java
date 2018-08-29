@@ -1,7 +1,6 @@
 package com.luxiaochun.multiselectiondialog.fragment;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,9 +31,6 @@ import com.luxiaochun.multiselectiondialog.adapter.TreeRecyclerAdapter;
 import com.luxiaochun.multiselectiondialog.base.Node;
 import com.luxiaochun.multiselectiondialog.listener.OnClickListener;
 import com.luxiaochun.multiselectiondialog.listener.OnItemClickListener;
-import com.luxiaochun.multiselectiondialog.utils.ColorUtil;
-import com.luxiaochun.multiselectiondialog.utils.DrawableUtil;
-import com.luxiaochun.multiselectiondialog.utils.MultiDialogUtils;
 
 import java.util.List;
 
@@ -56,8 +51,8 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
     private TextView tv_title;
     private RecyclerView recyclerview;
     private LinearLayout ll_onclick;
-    private Button btn_cancel;
-    private Button btn_confirm;
+    private LinearLayout btn_cancel;
+    private LinearLayout btn_confirm;
     private Activity mActivity;
     private TreeRecyclerAdapter mAdapter;
 
@@ -124,6 +119,7 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         lp.width = (int) (displayMetrics.widthPixels * 0.68f);
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         dialogWindow.setAttributes(lp);
         initData();
     }
@@ -154,7 +150,6 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
             } else if (DialogType.MULTI_ORDER.equals(type)) {
                 ll_onclick.setVisibility(View.VISIBLE);
                 mAdapter = new MultiOrderAdapter(mDatas, 6);
-
             }
             recyclerview.setAdapter(mAdapter);
             initClickEvents();
@@ -202,11 +197,11 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
         if (topResId != -1) {
             iv_top.setImageResource(topResId);
         }
-        btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), color));
-        btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), color));
+//        btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), color));
+//        btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), color));
         //随背景颜色变化
-        btn_cancel.setTextColor(ColorUtil.isTextColorDark(color) ? Color.BLACK : Color.WHITE);
-        btn_confirm.setTextColor(ColorUtil.isTextColorDark(color) ? Color.BLACK : Color.WHITE);
+//        btn_cancel.setTextColor(ColorUtil.isTextColorDark(color) ? Color.BLACK : Color.WHITE);
+//        btn_confirm.setTextColor(ColorUtil.isTextColorDark(color) ? Color.BLACK : Color.WHITE);
     }
 
     private void initClickEvents() {
@@ -219,10 +214,12 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
         int i = view.getId();
         if (i == R.id.btn_confirm) {
             if (onClickListener != null) {
+                dismiss();
                 onClickListener.onPositive(mAdapter.getCheckedNodeList());
             }
         } else if (i == R.id.btn_cancel) {
             if (onClickListener != null) {
+                dismiss();
                 onClickListener.onNegative();
             }
         }

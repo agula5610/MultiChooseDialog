@@ -1,7 +1,6 @@
 package com.luxiaochun.multiselectiondialog.adapter;
 
 import android.os.Handler;
-import android.view.Gravity;
 import android.view.View;
 
 import com.luxiaochun.multiselectiondialog.R;
@@ -35,7 +34,6 @@ public class SingleAdapter extends AbsTreeRecyclerAdapter {
     @Override
     public void onBindViewHolder(final Node node, RVBaseViewHolder holder, final int position) {
         holder.setText(R.id.id_treenode_label, node.getName());
-        holder.getLinearLayout(R.id.ll_content).setGravity(Gravity.CENTER);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

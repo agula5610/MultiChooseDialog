@@ -1,8 +1,5 @@
 package com.luxiaochun.multiselectiondialog.adapter;
 
-import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
 
 import com.luxiaochun.multiselectiondialog.R;
@@ -19,7 +16,7 @@ import java.util.List;
  * Date: 2018-03-15 09:01
  */
 public class MultiOrderAdapter extends AbsTreeRecyclerAdapter {
-    private List<Node> list = new ArrayList<Node>();
+    private List<Node> list = new ArrayList<>();
     private int limited = 9;
 
     public MultiOrderAdapter(List<Node> datas, int limited) {
@@ -37,15 +34,7 @@ public class MultiOrderAdapter extends AbsTreeRecyclerAdapter {
     public void onBindViewHolder(final Node node, final RVBaseViewHolder holder, final int position) {
 
         holder.setText(R.id.id_treenode_label, node.getName());
-        holder.getTextView(R.id.id_treenode_order).setVisibility(View.VISIBLE);
-        holder.getTextView(R.id.id_treenode_order).setText("");
-        if (position == 0) {
-            Node.textSize = holder.getTextView(R.id.id_treenode_label).getTextSize();
-        }
-
-        if (Node.textSize > 0) {
-            holder.getTextView(R.id.id_treenode_label).setTextSize(TypedValue.COMPLEX_UNIT_PX, Node.textSize - 4 * node.getLevel());
-        }
+        holder.setText(R.id.id_treenode_order, "");
         if (list.size() < limited) {
             for (int i = 0; i < list.size(); i++) {
                 if (node.getName().equals(list.get(i).getName())) {
@@ -72,7 +61,7 @@ public class MultiOrderAdapter extends AbsTreeRecyclerAdapter {
             }
         }
 
-        holder.getLinearLayout(R.id.ll_icon).setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 node.setChecked(!node.isChecked());

@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         .setActivity(MainActivity.this)
                         .setTitle("证件类型")
                         .setCanceledOnTouchOutside(true)
-                        .setDatas(CardTypeEnum.getDatas())
+                        .setDatas(CardTypeEnumMulti.getDatas())
                         .setType(DialogType.SINGLE_BOTTOM)
                         .setOnItemClickListener(new OnItemClickListener() {
                             @Override
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                         .setActivity(MainActivity.this)
                         .setTitle("证件类型")
                         .setCanceledOnTouchOutside(true)
-                        .setDatas(CardTypeEnum.getDatas())
+                        .setDatas(CardTypeEnumMulti.getDatas())
                         .setType(DialogType.SINGLE_ALL)
                         .setOnItemClickListener(new OnItemClickListener() {
                             @Override
@@ -111,6 +111,21 @@ public class MainActivity extends AppCompatActivity {
                         .setCanceledOnTouchOutside(true)
                         .setDatas(CardTypeEnum.getDatas())
                         .setType(DialogType.MULTI)
+                        .setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onPositive(List<Node> list) {
+                                StringBuilder sb = new StringBuilder();
+                                for (Node node : list) {
+                                    sb.append(node.getName() + ",");
+                                }
+                                Toast.makeText(MainActivity.this, sb.toString(), Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onNegative() {
+
+                            }
+                        })
                         .build().show();
             }
         });
@@ -123,12 +138,11 @@ public class MainActivity extends AppCompatActivity {
                         .setActivity(MainActivity.this)
                         .setTitle("证件类型")
                         .setCanceledOnTouchOutside(true)
-                        .setDatas(CardTypeEnum.getDatas())
+                        .setDatas(CardTypeEnumMulti.getDatas())
                         .setType(DialogType.MULTI_ALL)
                         .setOnClickListener(new OnClickListener() {
                             @Override
                             public void onPositive(List<Node> list) {
-                                List<Node> listdata = list;
                                 StringBuilder sb = new StringBuilder();
                                 for (Node node : list) {
                                     sb.append(node.getName() + ",");
