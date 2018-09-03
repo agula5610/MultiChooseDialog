@@ -22,14 +22,14 @@ import java.util.List;
 public class MultiSelectionDialogManager {
     public static final String TAG = MultiSelectionDialogManager.class.getSimpleName();
     /**
-     * 五个必填项
+     * 四个个必填项
      */
     private Activity mActivity;
     private String title;//dialog标题
     private DialogType type;//dialog类型
     private List<Node> mDatas;//数据流
-    private OnItemClickListener onItemClickListener;//选项点击事件
 
+    private OnItemClickListener onItemClickListener;//选项点击事件
     private int mThemeColor;//主题颜色
     @DrawableRes
     private int mTopPic;//顶部图片
