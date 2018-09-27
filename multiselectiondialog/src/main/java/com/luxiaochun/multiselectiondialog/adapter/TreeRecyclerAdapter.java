@@ -1,6 +1,5 @@
 package com.luxiaochun.multiselectiondialog.adapter;
 
-import android.nfc.Tag;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
@@ -167,7 +166,7 @@ public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RVBaseVie
     public List<Node> getCheckedNodeList() {
         List<Node> list = new ArrayList<>();
         for (Node node : mAllNodes) {
-            if (node.isChecked()) {
+            if (node.isChecked() && node.isLeaf()) {
                 list.add(node);
             }
         }
