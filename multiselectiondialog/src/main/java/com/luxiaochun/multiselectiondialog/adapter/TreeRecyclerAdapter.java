@@ -23,6 +23,7 @@ public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RVBaseVie
 
     public static int iconExpand;
     public static int iconCollapse;
+
     public TreeRecyclerAdapter(List<Node> datas, int iconExpand, int iconCollapse) {
         this.iconExpand = iconExpand;
         this.iconCollapse = iconCollapse;
@@ -48,7 +49,7 @@ public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RVBaseVie
         /**
          * 设置节点点击时，可以展开以及关闭,将事件继续往外公布
          */
-        Log.i("TreeRecyclerAdapter====",node.getName()+"===="+node.isChecked());
+        Log.i("TreeRecyclerAdapter====", node.getName() + "====" + node.isChecked());
         onBindViewHolder(node, holder, position);
     }
 
@@ -143,13 +144,14 @@ public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RVBaseVie
                 setNodeParentChecked(node.getParent(), checked);
         } else {
             List<Node> childrens = node.getChildren();
-            boolean isChecked = false;
+            boolean isChecked = true;
             for (Node children : childrens) {
-                if (children.isChecked()) {
-                    isChecked = true;
+                if (!children.isChecked()) {
+                    isChecked = false;
+                    break;
                 }
             }
-            //如果所有自节点都没有被选中 父节点也不选中
+            //只要有一个子节点没有别选中，父节点就不选中
             if (!isChecked) {
                 node.setChecked(checked);
             }
