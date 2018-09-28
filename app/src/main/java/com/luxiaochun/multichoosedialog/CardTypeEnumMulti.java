@@ -23,7 +23,7 @@ public enum CardTypeEnumMulti {
 
     SHENFEN_CARD("3","","身份证"),
 
-    OTHER_CARD("9","","其他");
+    OTHER_CARD("9", "", "其他");
 
 
     private final String id;

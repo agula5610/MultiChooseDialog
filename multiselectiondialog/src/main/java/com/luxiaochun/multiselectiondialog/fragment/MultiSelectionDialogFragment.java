@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -97,10 +98,11 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+        initData();
     }
 
 
-    private void initView(View view) {
+    private void initView(final View view) {
         //提示内容
         iv_top = view.findViewById(R.id.iv_top);
         tv_title = view.findViewById(R.id.tv_title);
@@ -109,6 +111,27 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
         ll_onclick = view.findViewById(R.id.ll_onclick);
         btn_cancel = view.findViewById(R.id.btn_cancel);
         btn_confirm = view.findViewById(R.id.btn_confirm);
+        view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop,
+                                       int oldRight, int oldBottom) {
+                int height = v.getHeight();     //此处的view 和v 其实是同一个控件
+                DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+                int needHeight = (int) (displayMetrics.heightPixels * 0.48f);
+
+                if (height > needHeight) {
+                    //注意：这里的 LayoutParams 必须是 FrameLayout的！！
+                    v.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                            needHeight));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
     @Override
@@ -119,9 +142,7 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         lp.width = (int) (displayMetrics.widthPixels * 0.68f);
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         dialogWindow.setAttributes(lp);
-        initData();
     }
 
     private void initData() {

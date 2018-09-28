@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button normal4;
     private Button normal5;
     private Button normal6;
+    List<Node> dataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,13 +133,16 @@ public class MainActivity extends AppCompatActivity {
         normal5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (dataList == null) {
+                    dataList = CardTypeEnumMulti.getDatas();
+                }
                 new MultiSelectionDialogManager
                         .Builder()
                         //当前Activity
                         .setActivity(MainActivity.this)
                         .setTitle("证件类型")
                         .setCanceledOnTouchOutside(true)
-                        .setDatas(CardTypeEnumMulti.getDatas())
+                        .setDatas(dataList)
                         .setType(DialogType.MULTI_ALL)
                         .setOnClickListener(new OnClickListener() {
                             @Override

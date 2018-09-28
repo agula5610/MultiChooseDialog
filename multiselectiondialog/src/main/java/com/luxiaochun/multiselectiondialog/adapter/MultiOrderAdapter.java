@@ -37,7 +37,7 @@ public class MultiOrderAdapter extends AbsTreeRecyclerAdapter {
         holder.setText(R.id.id_treenode_order, "");
         if (list.size() < limited) {
             for (int i = 0; i < list.size(); i++) {
-                if (node.getName().equals(list.get(i).getName())) {
+                if (node.getId().equals(list.get(i).getId())) {
                     if (i == 0) {
                         holder.getTextView(R.id.id_treenode_order).setText(R.string.quan1);
                     } else if (i == 1) {
@@ -70,7 +70,7 @@ public class MultiOrderAdapter extends AbsTreeRecyclerAdapter {
                         list.add(node);
                     } else {
                         for (int i = 0; i < list.size(); i++) {
-                            if (list.get(i).getName().equals(node.getName())) {
+                            if (list.get(i).getId().equals(node.getId())) {
                                 list.remove(i);
                             }
                         }

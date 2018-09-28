@@ -20,8 +20,21 @@ public class TreeHelper {
      */
     public static List<Node> getSortedNodes(List<Node> datas) {
         List<Node> result = new ArrayList<>();
-        // 将数据转化成根节点关系
-        List<Node> nodes = convetData2Node(datas);
+        boolean isSortedList = false;//用来判断是否是已经排序过的数据,默认false（没有排序过）
+        for (Node node : datas) {
+            if (node.getChildren().size() > 0) {
+                //如果根节点上已经有叶子节点了，说明已经做过排序，就不需要再做了
+                isSortedList = true;
+                break;
+            }
+        }
+        List<Node> nodes;
+        if (!isSortedList) {
+            // 将数据转化成根节点关系
+            nodes = convetData2Node(datas);
+        } else {
+            nodes = datas;
+        }
         // 拿到根节点
         List<Node> rootNodes = getRootNodes(nodes);
         // 排序以及设置Node间关系
