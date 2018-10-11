@@ -1,7 +1,5 @@
 package com.luxiaochun.multiselectiondialog;
 
-import android.support.annotation.DrawableRes;
-
 import com.luxiaochun.multiselectiondialog.base.Node;
 
 import java.io.Serializable;
@@ -20,8 +18,6 @@ public class MultiSelectionBean implements Serializable {
     private boolean canceledOnTouchOutside;
     private int limited;
     private int mThemeColor;//主题颜色
-    @DrawableRes
-    private int mTopPic;//顶部图片
 
     public String getTitle() {
         return title;
@@ -69,13 +65,5 @@ public class MultiSelectionBean implements Serializable {
 
     public void setmThemeColor(int mThemeColor) {
         this.mThemeColor = mThemeColor;
-    }
-
-    public int getmTopPic() {
-        return mTopPic;
-    }
-
-    public void setmTopPic(int mTopPic) {
-        this.mTopPic = mTopPic;
     }
 }

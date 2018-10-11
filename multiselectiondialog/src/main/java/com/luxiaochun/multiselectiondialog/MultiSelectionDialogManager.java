@@ -3,7 +3,6 @@ package com.luxiaochun.multiselectiondialog;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
 import android.support.v4.app.FragmentActivity;
 
 import com.luxiaochun.multiselectiondialog.base.Node;
@@ -31,8 +30,6 @@ public class MultiSelectionDialogManager {
 
     private OnItemClickListener onItemClickListener;//选项点击事件
     private int mThemeColor;//主题颜色
-    @DrawableRes
-    private int mTopPic;//顶部图片
     private boolean canceledOnTouchOutside;//是否外部取消
     private OnClickListener onClickListener;//按钮点击事件
     private int limited;//当排序选择时候的限制个数
@@ -45,7 +42,6 @@ public class MultiSelectionDialogManager {
         onItemClickListener = builder.getOnItemClickListener();
 
         mThemeColor = builder.getmThemeColor();
-        mTopPic = builder.getmTopPic();
         canceledOnTouchOutside = builder.isCanceledOnTouchOutside();
         onClickListener = builder.getOnClickListener();
         limited = builder.getLimited();
@@ -98,8 +94,6 @@ public class MultiSelectionDialogManager {
         private List<Node> mDatas;
         private boolean canceledOnTouchOutside = true;
         private int mThemeColor = -1;//主题颜色
-        @DrawableRes
-        private int mTopPic = -1;//顶部图片
         private OnItemClickListener onItemClickListener;
         private OnClickListener onClickListener;
         private int limited;
@@ -182,15 +176,6 @@ public class MultiSelectionDialogManager {
 
         public Builder setmThemeColor(int mThemeColor) {
             this.mThemeColor = mThemeColor;
-            return this;
-        }
-
-        public int getmTopPic() {
-            return mTopPic;
-        }
-
-        public Builder setmTopPic(int mTopPic) {
-            this.mTopPic = mTopPic;
             return this;
         }
 

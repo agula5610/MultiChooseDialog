@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatDialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -13,8 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -41,19 +42,17 @@ import java.util.List;
  * Author: jun
  * Date: 2018-08-21 09:34
  */
-public class MultiSelectionDialogFragment extends DialogFragment implements View.OnClickListener {
+public class MultiSelectionDialogFragment extends AppCompatDialogFragment implements View.OnClickListener {
     private int mDefaultColor = 0xffe94339;
-    private int mDefaultPicResId = -1;
     private MultiSelectionBean dialogBean;
     private OnItemClickListener onItemClickListener;
     private OnClickListener onClickListener;
 
-    private ImageView iv_top;
     private TextView tv_title;
     private RecyclerView recyclerview;
     private LinearLayout ll_onclick;
-    private LinearLayout btn_cancel;
-    private LinearLayout btn_confirm;
+    private Button btn_cancel;
+    private Button btn_confirm;
     private Activity mActivity;
     private TreeRecyclerAdapter mAdapter;
 
@@ -104,10 +103,10 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
 
     private void initView(final View view) {
         //提示内容
-        iv_top = view.findViewById(R.id.iv_top);
         tv_title = view.findViewById(R.id.tv_title);
         recyclerview = view.findViewById(R.id.recyclerview);
         recyclerview.setLayoutManager(new LinearLayoutManager(mActivity));
+//        recyclerview.addItemDecoration(new DividerItemDecoration(mActivity,DividerItemDecoration.VERTICAL));
         ll_onclick = view.findViewById(R.id.ll_onclick);
         btn_cancel = view.findViewById(R.id.btn_cancel);
         btn_confirm = view.findViewById(R.id.btn_confirm);
@@ -190,34 +189,20 @@ public class MultiSelectionDialogFragment extends DialogFragment implements View
      */
     private void initTheme() {
         final int color = dialogBean.getmThemeColor();
-        final int topResId = dialogBean.getmTopPic();
-
-        if (-1 == topResId) {
-            if (-1 == color) {
-                //默认红色
-                setDialogTheme(mDefaultColor, mDefaultPicResId);
-            } else {
-                setDialogTheme(color, mDefaultPicResId);
-            }
+        if (-1 == color) {
+            //默认红色
+            setDialogTheme(mDefaultColor);
         } else {
-            if (-1 == color) {
-                setDialogTheme(mDefaultColor, topResId);
-            } else {
-                setDialogTheme(color, topResId);
-            }
+            setDialogTheme(color);
         }
     }
 
     /**
      * 设置
      *
-     * @param color    主色
-     * @param topResId 图片
+     * @param color 主色
      */
-    private void setDialogTheme(int color, int topResId) {
-        if (topResId != -1) {
-            iv_top.setImageResource(topResId);
-        }
+    private void setDialogTheme(int color) {
 //        btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), color));
 //        btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), color));
         //随背景颜色变化

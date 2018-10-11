@@ -9,6 +9,7 @@ import com.luxiaochun.multiselectiondialog.fragment.MultiSelectionDialogFragment
 import com.luxiaochun.multiselectiondialog.listener.OnItemClickListener;
 import com.luxiaochun.multiselectiondialog.viewholder.RVBaseViewHolder;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,19 +21,23 @@ import java.util.List;
  */
 public class SingleAdapter extends AbsTreeRecyclerAdapter {
     private MultiSelectionDialogFragment fragment;
+    private boolean[] mChildrenFrozen;
 
     public SingleAdapter(MultiSelectionDialogFragment fragment, List<Node> datas, int iconExpand, int iconNoExpand, OnItemClickListener onItemClickListener) {
         super(datas, iconExpand, iconNoExpand, onItemClickListener);
         this.fragment = fragment;
+        mChildrenFrozen = new boolean[datas.size()];
+        Arrays.fill(mChildrenFrozen, false);
     }
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.multi_selection_item;
+        return R.layout.single_selection_item;
     }
 
     @Override
     public void onBindViewHolder(final Node node, RVBaseViewHolder holder, final int position) {
+        Arrays.fill(mChildrenFrozen, false);
         holder.setText(R.id.id_treenode_label, node.getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
