@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by jun on 2017-12-21.
  */
-public class Node<T, B> implements Serializable{
+public class Node<T, B> implements Serializable {
 
     /**
      * 传入的实体对象
@@ -64,6 +64,14 @@ public class Node<T, B> implements Serializable{
         this.id = id;
         this.pId = pId;
         this.name = name;
+    }
+
+    public Node(T id, T pId, String name, boolean isChecked) {
+        super();
+        this.id = id;
+        this.pId = pId;
+        this.name = name;
+        this.isChecked = isChecked;
     }
 
     public Node(T id, T pId, String name, B bean) {

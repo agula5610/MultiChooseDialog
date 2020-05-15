@@ -3,10 +3,9 @@ package com.luxiaochun.multiselectiondialog.adapter;
 import android.os.Handler;
 import android.view.View;
 
+import com.luxiaochun.multiselectiondialog.MultiSelectionDialogFragment;
 import com.luxiaochun.multiselectiondialog.R;
 import com.luxiaochun.multiselectiondialog.base.Node;
-import com.luxiaochun.multiselectiondialog.fragment.MultiSelectionDialogFragment;
-import com.luxiaochun.multiselectiondialog.listener.OnItemClickListener;
 import com.luxiaochun.multiselectiondialog.viewholder.RVBaseViewHolder;
 
 import java.util.List;

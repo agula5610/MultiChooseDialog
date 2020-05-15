@@ -1,6 +1,7 @@
-package com.luxiaochun.multiselectiondialog.fragment;
+package com.luxiaochun.multiselectiondialog;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -19,10 +20,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.luxiaochun.multiselectiondialog.DialogType;
-import com.luxiaochun.multiselectiondialog.MultiSelectionBean;
-import com.luxiaochun.multiselectiondialog.MultiSelectionDialogManager;
-import com.luxiaochun.multiselectiondialog.R;
 import com.luxiaochun.multiselectiondialog.adapter.MultiAdapter;
 import com.luxiaochun.multiselectiondialog.adapter.MultiAllAdapter;
 import com.luxiaochun.multiselectiondialog.adapter.MultiOrderAdapter;
@@ -31,8 +28,10 @@ import com.luxiaochun.multiselectiondialog.adapter.SingleAllAdapter;
 import com.luxiaochun.multiselectiondialog.adapter.SingleBottomAdapter;
 import com.luxiaochun.multiselectiondialog.adapter.TreeRecyclerAdapter;
 import com.luxiaochun.multiselectiondialog.base.Node;
-import com.luxiaochun.multiselectiondialog.listener.OnClickListener;
-import com.luxiaochun.multiselectiondialog.listener.OnItemClickListener;
+import com.luxiaochun.multiselectiondialog.listener.OnDialogListener;
+import com.luxiaochun.multiselectiondialog.utils.ColorUtil;
+import com.luxiaochun.multiselectiondialog.utils.DrawableUtil;
+import com.luxiaochun.multiselectiondialog.utils.MultiDialogUtils;
 
 import java.util.List;
 
@@ -43,10 +42,11 @@ import java.util.List;
  * Date: 2018-08-21 09:34
  */
 public class MultiSelectionDialogFragment extends AppCompatDialogFragment implements View.OnClickListener {
-    private int mDefaultColor = 0xffe94339;
-    private MultiSelectionBean dialogBean;
-    private OnItemClickListener onItemClickListener;
-    private OnClickListener onClickListener;
+    private int mDefaultTitleColor = 0x000000;
+    private int mDefaultItemColor = 0xBEBEBE;
+    private int mDefaultThemeColor = 0xFF4081;
+    private SelectBean bean;
+    private OnDialogListener onClickListener;
 
     private TextView tv_title;
     private RecyclerView recyclerview;
@@ -64,18 +64,13 @@ public class MultiSelectionDialogFragment extends AppCompatDialogFragment implem
         return fragment;
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    public void setOnClickListener(OnClickListener onClickListener) {
+    public void setOnClickListener(OnDialogListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setStyle(DialogFragment.STYLE_NO_TITLE | DialogFragment.STYLE_NO_FRAME, 0);
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.MultiSelectionDialog);
         mActivity = getActivity();
     }
@@ -83,11 +78,9 @@ public class MultiSelectionDialogFragment extends AppCompatDialogFragment implem
     @Override
     public void onStart() {
         super.onStart();
-        //点击window外的区域 是否消失
-        getDialog().setCanceledOnTouchOutside(dialogBean.isCanceledOnTouchOutside());
+        getDialog().setCanceledOnTouchOutside(bean.isCanceledOnTouchOutside());
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.multi_selection_dialog, container);
@@ -102,7 +95,6 @@ public class MultiSelectionDialogFragment extends AppCompatDialogFragment implem
 
 
     private void initView(final View view) {
-        //提示内容
         tv_title = view.findViewById(R.id.tv_title);
         recyclerview = view.findViewById(R.id.recyclerview);
         recyclerview.setLayoutManager(new LinearLayoutManager(mActivity));
@@ -116,7 +108,7 @@ public class MultiSelectionDialogFragment extends AppCompatDialogFragment implem
                                        int oldRight, int oldBottom) {
                 int height = v.getHeight();     //此处的view 和v 其实是同一个控件
                 DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-                int needHeight = (int) (displayMetrics.heightPixels * 0.48f);
+                int needHeight = (int) (displayMetrics.heightPixels * 0.68f);
 
                 if (height > needHeight) {
                     //注意：这里的 LayoutParams 必须是 FrameLayout的！！
@@ -128,46 +120,40 @@ public class MultiSelectionDialogFragment extends AppCompatDialogFragment implem
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Window dialogWindow = getDialog().getWindow();
         dialogWindow.setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        lp.width = (int) (displayMetrics.widthPixels * 0.68f);
+        lp.width = (int) (displayMetrics.widthPixels * 0.78f);
         dialogWindow.setAttributes(lp);
     }
 
     private void initData() {
-        dialogBean = (MultiSelectionBean) getArguments().getSerializable(MultiSelectionDialogManager.TAG);
+        bean = (SelectBean) getArguments().getSerializable(SelectDialogManager.TAG);
         //设置主题色
         initTheme();
-        if (dialogBean != null) {
+        if (bean != null) {
             //弹出对话框
-            final String dialogTitle = dialogBean.getTitle();
+            final String dialogTitle = bean.getTitle();
             //标题
             tv_title.setText(dialogTitle);
-            List<Node> mDatas = dialogBean.getmDatas();
-            DialogType type = dialogBean.getType();
-            if (DialogType.SINGLE.equals(type)) {
-                mAdapter = new SingleAdapter(MultiSelectionDialogFragment.this, mDatas, R.drawable.pullup, R.drawable.pulldown, onItemClickListener);
-            } else if (DialogType.SINGLE_BOTTOM.equals(type)) {
-                mAdapter = new SingleBottomAdapter(MultiSelectionDialogFragment.this, mDatas, R.drawable.list_expand, R.drawable.list_collapse, onItemClickListener);
-            } else if (DialogType.SINGLE_ALL.equals(type)) {
-                mAdapter = new SingleAllAdapter(MultiSelectionDialogFragment.this, mDatas, R.drawable.list_expand, R.drawable.list_collapse, onItemClickListener);
-            } else if (DialogType.MULTI.equals(type)) {
+            List<Node> mDatas = bean.getmDatas();
+            DialogType type = bean.getType();
+            if (DialogType.SINGLEDEGREE_SINGLECHOOSE.equals(type)) {
+                mAdapter = new SingleAdapter(MultiSelectionDialogFragment.this, mDatas, R.drawable.pullup, R.drawable.pulldown);
+            } else if (DialogType.MULTIDEGREE_SINGLECHOOSE_LEAF.equals(type)) {
+                mAdapter = new SingleBottomAdapter(MultiSelectionDialogFragment.this, mDatas, R.drawable.list_expand, R.drawable.list_collapse);
+            } else if (DialogType.MULTIDEGREE_SINGLECHOOSE_ALL.equals(type)) {
+                mAdapter = new SingleAllAdapter(MultiSelectionDialogFragment.this, mDatas, R.drawable.list_expand, R.drawable.list_collapse);
+            } else if (DialogType.SINGLEDEGREE_MULTICHOOSE.equals(type)) {
                 ll_onclick.setVisibility(View.VISIBLE);
                 mAdapter = new MultiAdapter(mDatas);
-            } else if (DialogType.MULTI_ALL.equals(type)) {
+            } else if (DialogType.MULTIDEGREE_MULTICHOOSE.equals(type)) {
                 ll_onclick.setVisibility(View.VISIBLE);
                 mAdapter = new MultiAllAdapter(mDatas, R.drawable.list_expand, R.drawable.list_collapse);
-            } else if (DialogType.MULTI_ORDER.equals(type)) {
+            } else if (DialogType.SINGLEDEGREE_ORDER.equals(type)) {
                 ll_onclick.setVisibility(View.VISIBLE);
                 mAdapter = new MultiOrderAdapter(mDatas, 6);
             }
@@ -188,7 +174,7 @@ public class MultiSelectionDialogFragment extends AppCompatDialogFragment implem
      * 初始化主题色
      */
     private void initTheme() {
-        final int color = dialogBean.getmThemeColor();
+        final int color = bean.getmThemeColor();
         if (-1 == color) {
             //默认红色
             setDialogTheme(mDefaultColor);
@@ -203,11 +189,10 @@ public class MultiSelectionDialogFragment extends AppCompatDialogFragment implem
      * @param color 主色
      */
     private void setDialogTheme(int color) {
-//        btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), color));
-//        btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), color));
-        //随背景颜色变化
-//        btn_cancel.setTextColor(ColorUtil.isTextColorDark(color) ? Color.BLACK : Color.WHITE);
-//        btn_confirm.setTextColor(ColorUtil.isTextColorDark(color) ? Color.BLACK : Color.WHITE);
+        btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), color));
+        btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), color));
+        btn_cancel.setTextColor(ColorUtil.isTextColorDark(color) ? Color.BLACK : Color.WHITE);
+        btn_confirm.setTextColor(ColorUtil.isTextColorDark(color) ? Color.BLACK : Color.WHITE);
     }
 
     private void initClickEvents() {

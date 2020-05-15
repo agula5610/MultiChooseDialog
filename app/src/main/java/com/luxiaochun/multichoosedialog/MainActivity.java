@@ -115,11 +115,8 @@ public class MainActivity extends AppCompatActivity {
                         .setOnClickListener(new OnClickListener() {
                             @Override
                             public void onPositive(List<Node> list) {
-                                StringBuilder sb = new StringBuilder();
-                                for (Node node : list) {
-                                    sb.append(node.getName() + ",");
-                                }
-                                Toast.makeText(MainActivity.this, sb.toString(), Toast.LENGTH_SHORT).show();
+                                String sb = CardTypeEnum.setDatas(list);
+                                Toast.makeText(MainActivity.this, sb, Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
