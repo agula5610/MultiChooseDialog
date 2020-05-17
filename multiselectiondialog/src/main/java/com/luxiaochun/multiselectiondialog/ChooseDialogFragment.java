@@ -41,7 +41,7 @@ import java.util.List;
  * Author: jun
  * Date: 2018-08-21 09:34
  */
-public class MultiSelectionDialogFragment extends AppCompatDialogFragment implements View.OnClickListener {
+public class ChooseDialogFragment extends AppCompatDialogFragment implements View.OnClickListener {
     private int mDefaultTitleColor = 0x000000;
     private int mDefaultItemColor = 0xBEBEBE;
     private int mDefaultThemeColor = 0xFF4081;
@@ -56,8 +56,8 @@ public class MultiSelectionDialogFragment extends AppCompatDialogFragment implem
     private Activity mActivity;
     private TreeRecyclerAdapter mAdapter;
 
-    public static MultiSelectionDialogFragment newInstance(Bundle args) {
-        MultiSelectionDialogFragment fragment = new MultiSelectionDialogFragment();
+    public static ChooseDialogFragment newInstance(Bundle args) {
+        ChooseDialogFragment fragment = new ChooseDialogFragment();
         if (args != null) {
             fragment.setArguments(args);
         }
@@ -142,11 +142,11 @@ public class MultiSelectionDialogFragment extends AppCompatDialogFragment implem
             List<Node> mDatas = bean.getmDatas();
             DialogType type = bean.getType();
             if (DialogType.SINGLEDEGREE_SINGLECHOOSE.equals(type)) {
-                mAdapter = new SingleAdapter(MultiSelectionDialogFragment.this, mDatas, R.drawable.pullup, R.drawable.pulldown);
+                mAdapter = new SingleAdapter(mDatas, R.drawable.pullup, R.drawable.pulldown);
             } else if (DialogType.MULTIDEGREE_SINGLECHOOSE_LEAF.equals(type)) {
-                mAdapter = new SingleBottomAdapter(MultiSelectionDialogFragment.this, mDatas, R.drawable.list_expand, R.drawable.list_collapse);
+                mAdapter = new SingleBottomAdapter( mDatas, R.drawable.list_expand, R.drawable.list_collapse);
             } else if (DialogType.MULTIDEGREE_SINGLECHOOSE_ALL.equals(type)) {
-                mAdapter = new SingleAllAdapter(MultiSelectionDialogFragment.this, mDatas, R.drawable.list_expand, R.drawable.list_collapse);
+                mAdapter = new SingleAllAdapter(mDatas, R.drawable.list_expand, R.drawable.list_collapse);
             } else if (DialogType.SINGLEDEGREE_MULTICHOOSE.equals(type)) {
                 ll_onclick.setVisibility(View.VISIBLE);
                 mAdapter = new MultiAdapter(mDatas);
@@ -160,14 +160,6 @@ public class MultiSelectionDialogFragment extends AppCompatDialogFragment implem
             recyclerview.setAdapter(mAdapter);
             initClickEvents();
         }
-    }
-
-    public TreeRecyclerAdapter getmAdapter() {
-        return mAdapter;
-    }
-
-    public void setmAdapter(TreeRecyclerAdapter mAdapter) {
-        this.mAdapter = mAdapter;
     }
 
     /**
@@ -206,19 +198,13 @@ public class MultiSelectionDialogFragment extends AppCompatDialogFragment implem
         if (i == R.id.btn_confirm) {
             if (onClickListener != null) {
                 dismiss();
-                onClickListener.onPositive(mAdapter.getCheckedNodeList());
+                onClickListener.onConfirm(mAdapter.getCheckedNodeList());
             }
         } else if (i == R.id.btn_cancel) {
             if (onClickListener != null) {
                 dismiss();
-                onClickListener.onNegative();
             }
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
     }
 
     public boolean isShowing() {

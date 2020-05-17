@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 /**
@@ -54,6 +55,10 @@ public class RVBaseViewHolder extends RecyclerView.ViewHolder {
     }
 
     public AppCompatCheckBox getCheckBox(int resId){
+        return retrieveView(resId);
+    }
+
+    public RadioButton getRadioButton(int resId){
         return retrieveView(resId);
     }
 

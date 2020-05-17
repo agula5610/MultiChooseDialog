@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class MultiAllAdapter extends AbsTreeRecyclerAdapter {
     public MultiAllAdapter(List<Node> datas, int iconExpand, int iconNoExpand) {
-        super(datas, iconExpand, iconNoExpand, null);
+        super(datas, iconExpand, iconNoExpand);
     }
 
     @Override

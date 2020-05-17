@@ -1,13 +1,10 @@
 package com.luxiaochun.multiselectiondialog.adapter;
 
-import android.os.Handler;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.luxiaochun.multiselectiondialog.MultiSelectionDialogFragment;
 import com.luxiaochun.multiselectiondialog.R;
 import com.luxiaochun.multiselectiondialog.base.Node;
-import com.luxiaochun.multiselectiondialog.listener.OnItemClickListener;
 import com.luxiaochun.multiselectiondialog.viewholder.RVBaseViewHolder;
 
 import java.util.List;
@@ -19,11 +16,9 @@ import java.util.List;
  * Date: 2018-03-14 15:40
  */
 public class SingleAllAdapter extends AbsTreeRecyclerAdapter {
-    private MultiSelectionDialogFragment fragment;
 
-    public SingleAllAdapter(MultiSelectionDialogFragment fragment, List<Node> datas, int iconExpand, int iconNoExpand, OnItemClickListener onItemClickListener) {
-        super(datas, iconExpand, iconNoExpand, onItemClickListener);
-        this.fragment = fragment;
+    public SingleAllAdapter( List<Node> datas, int iconExpand, int iconNoExpand) {
+        super(datas, iconExpand, iconNoExpand);
     }
 
     @Override
@@ -57,18 +52,7 @@ public class SingleAllAdapter extends AbsTreeRecyclerAdapter {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (onItemClickListener != null) {
-                            if (fragment.isShowing()) {
-                                fragment.dismiss();
-                                onItemClickListener.onClick(node, position);
-                            }
-                        }
-                    }
-                }, 60);
+                setRadioChecked(node);
             }
         });
     }

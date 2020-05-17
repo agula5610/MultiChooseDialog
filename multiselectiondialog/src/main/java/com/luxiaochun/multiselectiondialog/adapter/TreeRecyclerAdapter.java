@@ -27,17 +27,12 @@ public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RVBaseVie
     public TreeRecyclerAdapter(List<Node> datas, int iconExpand, int iconCollapse) {
         this.iconExpand = iconExpand;
         this.iconCollapse = iconCollapse;
-        /**
-         * 对所有的Node进行排序
-         */
+
+        //对所有的Node进行排序
         mAllNodes = TreeHelper.getSortedNodes(datas);
-        /**
-         *  对所有节点分级
-         */
+        //对所有节点分级
         TreeHelper.grading(mAllNodes);
-        /**
-         * 过滤出可见的Node
-         */
+        //过滤出可见的Node
         mVisibleNodes = TreeHelper.filterVisibleNode(mAllNodes);
     }
 
@@ -113,6 +108,20 @@ public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RVBaseVie
             setNodeParentChecked(node.getParent(), checked);
         notifyDataSetChanged();
     }
+
+    /**
+     * 设置单选
+     *
+     * @param node
+     */
+    protected void setRadioChecked(final Node node) {
+        for (Node vNode : mVisibleNodes) {
+            vNode.setChecked(false);
+        }
+        node.setChecked(true);
+        notifyDataSetChanged();
+    }
+
 
     /**
      * 设置子节点的选中状态，根节点被选中，则所有子节点都被选中；

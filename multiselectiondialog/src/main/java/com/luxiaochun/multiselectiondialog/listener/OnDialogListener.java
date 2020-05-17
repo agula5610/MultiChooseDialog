@@ -8,5 +8,4 @@ package com.luxiaochun.multiselectiondialog.listener;
  */
 public interface OnDialogListener<T> {
     void onConfirm(T list);
-    void onCancel();
 }

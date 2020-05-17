@@ -1,9 +1,7 @@
 package com.luxiaochun.multiselectiondialog.adapter;
 
-import android.os.Handler;
 import android.view.View;
 
-import com.luxiaochun.multiselectiondialog.MultiSelectionDialogFragment;
 import com.luxiaochun.multiselectiondialog.R;
 import com.luxiaochun.multiselectiondialog.base.Node;
 import com.luxiaochun.multiselectiondialog.viewholder.RVBaseViewHolder;
@@ -18,15 +16,9 @@ import java.util.List;
  * 单选(针对单列无子类的情况，也是最常用的一种情况)
  */
 public class SingleAdapter extends AbsTreeRecyclerAdapter {
-    private MultiSelectionDialogFragment fragment;
-    //单选记忆解决方案
-//    private boolean[] mChildrenFrozen;
 
-    public SingleAdapter(MultiSelectionDialogFragment fragment, List<Node> datas, int iconExpand, int iconNoExpand, OnItemClickListener onItemClickListener) {
-        super(datas, iconExpand, iconNoExpand, onItemClickListener);
-        this.fragment = fragment;
-//        mChildrenFrozen = new boolean[datas.size()];
-//        Arrays.fill(mChildrenFrozen, false);
+    public SingleAdapter(List<Node> datas, int iconExpand, int iconNoExpand) {
+        super(datas, iconExpand, iconNoExpand);
     }
 
     @Override
@@ -37,21 +29,15 @@ public class SingleAdapter extends AbsTreeRecyclerAdapter {
     @Override
     public void onBindViewHolder(final Node node, RVBaseViewHolder holder, final int position) {
         holder.setText(R.id.id_treenode_label, node.getName());
+        if (node.isChecked()) {
+            holder.getRadioButton(R.id.single_radio_btn).setChecked(true);
+        } else {
+            holder.getRadioButton(R.id.single_radio_btn).setChecked(false);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (onItemClickListener != null) {
-                            if (fragment.isShowing()) {
-                                fragment.dismiss();
-                                onItemClickListener.onClick(node, position);
-                            }
-                        }
-                    }
-                }, 60);
+                setRadioChecked(node);
             }
         });
     }
