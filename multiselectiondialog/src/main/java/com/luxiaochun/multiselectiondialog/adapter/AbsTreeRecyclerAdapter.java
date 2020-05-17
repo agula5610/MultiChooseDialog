@@ -13,8 +13,8 @@ import java.util.List;
  */
 public abstract class AbsTreeRecyclerAdapter extends TreeRecyclerAdapter {
 
-    public AbsTreeRecyclerAdapter(List<Node> datas, int iconExpand, int iconNoExpand) {
-        super(datas, iconExpand, iconNoExpand);
+    public AbsTreeRecyclerAdapter(List<Node> datas) {
+        super(datas);
     }
 
     @Override

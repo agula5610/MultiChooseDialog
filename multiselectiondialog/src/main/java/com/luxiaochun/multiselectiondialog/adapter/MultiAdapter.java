@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class MultiAdapter extends AbsTreeRecyclerAdapter {
     public MultiAdapter(List<Node> datas) {
-        super(datas, -1, -1);
+        super(datas);
     }
 
     @Override

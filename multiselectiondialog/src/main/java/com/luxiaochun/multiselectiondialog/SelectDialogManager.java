@@ -22,7 +22,6 @@ public class SelectDialogManager {
 
     private SelectDialogManager(Builder builder) {
         bean = new SelectBean();
-        bean.setmActivity(builder.getActivity());
         bean.setTitle(builder.getTitle());
         bean.setTitleColor(builder.getTitleColor());
         bean.setmDatas(builder.getDatas());
@@ -41,7 +40,7 @@ public class SelectDialogManager {
         if (bean != null && bean.getmActivity() != null && !bean.getmActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(TAG, bean);
-            MultiSelectionDialogFragment fragment = MultiSelectionDialogFragment
+            ChooseDialogFragment fragment = ChooseDialogFragment
                     .newInstance(bundle);
             if (onClickListener != null) {
                 fragment.setOnClickListener(onClickListener);
@@ -52,26 +51,16 @@ public class SelectDialogManager {
 
     public static class Builder {
         //必填
-        private Activity mActivity;
         private String title;                               //标题
         private List<Node> mDatas;                          //数据流
         //选填
         private int titleColor = -1;                //标题颜色
         private int itemColor = -1;                  //项目颜色
-        private DialogType type;                            //类型
+        private DialogType type = DialogType.SINGLEDEGREE_SINGLECHOOSE; //类型(默认单级单选)
         private boolean canceledOnTouchOutside = true;      //是否点击外侧可取消
-        private int mThemeColor = -1;               //主题颜色
-        private int limited = 9;                            //排序限制
+        private int mThemeColor = -1;                       //主题颜色
+        private int limited = 9;                            //排序限制(默认9个)
         private OnDialogListener onClickListener;
-
-        public Activity getActivity() {
-            return mActivity;
-        }
-
-        public Builder setActivity(Activity mActivity) {
-            this.mActivity = mActivity;
-            return this;
-        }
 
         public String getTitle() {
             return title;
@@ -155,9 +144,6 @@ public class SelectDialogManager {
         }
 
         public SelectDialogManager build() {
-            if (getActivity() == null) {
-                throw new NullPointerException("必要参数不能为空");
-            }
             return new SelectDialogManager(this);
         }
     }

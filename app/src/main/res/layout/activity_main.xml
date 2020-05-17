@@ -19,28 +19,10 @@
             android:text="单级单选（最常见）" />
 
         <Button
-            android:id="@+id/normal2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="单选多级（最后一级可点击）" />
-
-        <Button
-            android:id="@+id/normal3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="单选多级(任何一级都可点击选择)" />
-
-        <Button
             android:id="@+id/normal4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="多选单级" />
-
-        <Button
-            android:id="@+id/normal5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="多选多级" />
 
         <Button
             android:id="@+id/normal6"

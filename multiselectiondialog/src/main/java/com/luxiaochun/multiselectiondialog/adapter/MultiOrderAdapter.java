@@ -20,7 +20,7 @@ public class MultiOrderAdapter extends AbsTreeRecyclerAdapter {
     private int limited = 9;
 
     public MultiOrderAdapter(List<Node> datas, int limited) {
-        super(datas, -1, -1);
+        super(datas);
         this.limited = limited;
         list.clear();
     }

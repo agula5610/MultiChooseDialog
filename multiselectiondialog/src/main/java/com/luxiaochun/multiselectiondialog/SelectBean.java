@@ -23,7 +23,7 @@ public class SelectBean implements Serializable {
     private int itemColor;                              //项目颜色
     private DialogType type;                            //类型
     private boolean canceledOnTouchOutside = true;      //是否点击外侧可取消
-    private int mThemeColor = -1;                       //主题颜色
+    private int mThemeColor;                            //主题颜色
     private int limited;                                //排序限制
 
     public Activity getmActivity() {

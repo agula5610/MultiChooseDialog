@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class SingleAdapter extends AbsTreeRecyclerAdapter {
 
-    public SingleAdapter(List<Node> datas, int iconExpand, int iconNoExpand) {
-        super(datas, iconExpand, iconNoExpand);
+    public SingleAdapter(List<Node> datas) {
+        super(datas);
     }
 
     @Override

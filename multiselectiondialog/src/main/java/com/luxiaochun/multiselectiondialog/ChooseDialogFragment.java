@@ -21,11 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.luxiaochun.multiselectiondialog.adapter.MultiAdapter;
-import com.luxiaochun.multiselectiondialog.adapter.MultiAllAdapter;
 import com.luxiaochun.multiselectiondialog.adapter.MultiOrderAdapter;
 import com.luxiaochun.multiselectiondialog.adapter.SingleAdapter;
-import com.luxiaochun.multiselectiondialog.adapter.SingleAllAdapter;
-import com.luxiaochun.multiselectiondialog.adapter.SingleBottomAdapter;
 import com.luxiaochun.multiselectiondialog.adapter.TreeRecyclerAdapter;
 import com.luxiaochun.multiselectiondialog.base.Node;
 import com.luxiaochun.multiselectiondialog.listener.OnDialogListener;
@@ -89,7 +86,10 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        bean = (SelectBean) getArguments().getSerializable(SelectDialogManager.TAG);
         initView(view);
+        //设置主题色
+        initTheme();
         initData();
     }
 
@@ -131,9 +131,6 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
     }
 
     private void initData() {
-        bean = (SelectBean) getArguments().getSerializable(SelectDialogManager.TAG);
-        //设置主题色
-        initTheme();
         if (bean != null) {
             //弹出对话框
             final String dialogTitle = bean.getTitle();
@@ -142,20 +139,13 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
             List<Node> mDatas = bean.getmDatas();
             DialogType type = bean.getType();
             if (DialogType.SINGLEDEGREE_SINGLECHOOSE.equals(type)) {
-                mAdapter = new SingleAdapter(mDatas, R.drawable.pullup, R.drawable.pulldown);
-            } else if (DialogType.MULTIDEGREE_SINGLECHOOSE_LEAF.equals(type)) {
-                mAdapter = new SingleBottomAdapter( mDatas, R.drawable.list_expand, R.drawable.list_collapse);
-            } else if (DialogType.MULTIDEGREE_SINGLECHOOSE_ALL.equals(type)) {
-                mAdapter = new SingleAllAdapter(mDatas, R.drawable.list_expand, R.drawable.list_collapse);
-            } else if (DialogType.SINGLEDEGREE_MULTICHOOSE.equals(type)) {
+                mAdapter = new SingleAdapter(mDatas);
+            }  else if (DialogType.SINGLEDEGREE_MULTICHOOSE.equals(type)) {
                 ll_onclick.setVisibility(View.VISIBLE);
                 mAdapter = new MultiAdapter(mDatas);
-            } else if (DialogType.MULTIDEGREE_MULTICHOOSE.equals(type)) {
+            }  else if (DialogType.SINGLEDEGREE_ORDER.equals(type)) {
                 ll_onclick.setVisibility(View.VISIBLE);
-                mAdapter = new MultiAllAdapter(mDatas, R.drawable.list_expand, R.drawable.list_collapse);
-            } else if (DialogType.SINGLEDEGREE_ORDER.equals(type)) {
-                ll_onclick.setVisibility(View.VISIBLE);
-                mAdapter = new MultiOrderAdapter(mDatas, 6);
+                mAdapter = new MultiOrderAdapter(mDatas, bean.getLimited());
             }
             recyclerview.setAdapter(mAdapter);
             initClickEvents();
@@ -166,12 +156,22 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
      * 初始化主题色
      */
     private void initTheme() {
-        final int color = bean.getmThemeColor();
-        if (-1 == color) {
-            //默认红色
-            setDialogTheme(mDefaultColor);
+        final int titleColor = bean.getTitleColor();
+        final int themeColor = bean.getmThemeColor();
+        final int itemColor = bean.getmThemeColor();
+        if (-1 == titleColor){
+            tv_title.setTextColor(mDefaultTitleColor);
         } else {
-            setDialogTheme(color);
+            tv_title.setTextColor(titleColor);
+        }
+        if (-1 == themeColor) {
+            //默认红色
+            setDialogTheme(mDefaultThemeColor);
+        } else {
+            setDialogTheme(themeColor);
+        }
+        if (-1 == itemColor){
+            bean.setItemColor(mDefaultItemColor);
         }
     }
 
