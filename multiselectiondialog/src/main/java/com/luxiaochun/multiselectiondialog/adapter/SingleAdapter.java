@@ -40,5 +40,11 @@ public class SingleAdapter extends AbsTreeRecyclerAdapter {
                 setRadioChecked(node);
             }
         });
+        holder.getRadioButton(R.id.single_radio_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setRadioChecked(node);
+            }
+        });
     }
 }

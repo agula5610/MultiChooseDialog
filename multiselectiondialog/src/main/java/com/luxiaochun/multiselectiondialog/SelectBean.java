@@ -1,6 +1,6 @@
 package com.luxiaochun.multiselectiondialog;
 
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 
 import com.luxiaochun.multiselectiondialog.base.Node;
 
@@ -15,23 +15,22 @@ import java.util.List;
  */
 public class SelectBean implements Serializable {
     //必填
-    private Activity mActivity;
+    private FragmentActivity context;
     private String title;                               //标题
     private List<Node> mDatas;                          //数据流
     //选填
     private int titleColor;                             //标题颜色
-    private int itemColor;                              //项目颜色
     private DialogType type;                            //类型
     private boolean canceledOnTouchOutside = true;      //是否点击外侧可取消
     private int mThemeColor;                            //主题颜色
     private int limited;                                //排序限制
 
-    public Activity getmActivity() {
-        return mActivity;
+    public FragmentActivity getContext() {
+        return context;
     }
 
-    public void setmActivity(Activity mActivity) {
-        this.mActivity = mActivity;
+    public void setContext(FragmentActivity context) {
+        this.context = context;
     }
 
     public String getTitle() {
@@ -56,14 +55,6 @@ public class SelectBean implements Serializable {
 
     public void setTitleColor(int titleColor) {
         this.titleColor = titleColor;
-    }
-
-    public int getItemColor() {
-        return itemColor;
-    }
-
-    public void setItemColor(int itemColor) {
-        this.itemColor = itemColor;
     }
 
     public DialogType getType() {

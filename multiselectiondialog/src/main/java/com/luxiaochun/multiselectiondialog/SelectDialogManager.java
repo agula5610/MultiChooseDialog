@@ -1,6 +1,5 @@
 package com.luxiaochun.multiselectiondialog;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
@@ -22,10 +21,10 @@ public class SelectDialogManager {
 
     private SelectDialogManager(Builder builder) {
         bean = new SelectBean();
+        bean.setContext(builder.getContext());
         bean.setTitle(builder.getTitle());
         bean.setTitleColor(builder.getTitleColor());
         bean.setmDatas(builder.getDatas());
-        bean.setItemColor(builder.getItemColor());
         bean.setmThemeColor(builder.getmThemeColor());
         bean.setType(builder.getType());
         bean.setLimited(builder.getLimited());
@@ -37,7 +36,7 @@ public class SelectDialogManager {
      * 显示Dialog
      */
     public void show() {
-        if (bean != null && bean.getmActivity() != null && !bean.getmActivity().isFinishing()) {
+        if (bean != null) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(TAG, bean);
             ChooseDialogFragment fragment = ChooseDialogFragment
@@ -45,22 +44,31 @@ public class SelectDialogManager {
             if (onClickListener != null) {
                 fragment.setOnClickListener(onClickListener);
             }
-            fragment.show(((FragmentActivity) bean.getmActivity()).getSupportFragmentManager(), TAG);
+            fragment.show(bean.getContext().getSupportFragmentManager(), TAG);
         }
     }
 
     public static class Builder {
         //必填
+        private FragmentActivity context;  //
         private String title;                               //标题
         private List<Node> mDatas;                          //数据流
         //选填
-        private int titleColor = -1;                //标题颜色
-        private int itemColor = -1;                  //项目颜色
+        private int titleColor = -1;                        //标题颜色
         private DialogType type = DialogType.SINGLEDEGREE_SINGLECHOOSE; //类型(默认单级单选)
         private boolean canceledOnTouchOutside = true;      //是否点击外侧可取消
         private int mThemeColor = -1;                       //主题颜色
         private int limited = 9;                            //排序限制(默认9个)
         private OnDialogListener onClickListener;
+
+        public FragmentActivity getContext() {
+            return context;
+        }
+
+        public Builder setContext(FragmentActivity context) {
+            this.context = context;
+            return this;
+        }
 
         public String getTitle() {
             return title;
@@ -77,15 +85,6 @@ public class SelectDialogManager {
 
         public Builder setTitleColor(int titleColor) {
             this.titleColor = titleColor;
-            return this;
-        }
-
-        public int getItemColor() {
-            return itemColor;
-        }
-
-        public Builder setItemColor(int itemColor) {
-            this.itemColor = itemColor;
             return this;
         }
 
@@ -146,5 +145,7 @@ public class SelectDialogManager {
         public SelectDialogManager build() {
             return new SelectDialogManager(this);
         }
+
+
     }
 }

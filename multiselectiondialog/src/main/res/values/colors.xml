@@ -4,5 +4,6 @@
     <color name="standardContentText">#666666</color>
     <color name="white">#FFFFFF</color>
     <color name="gray">#BEBEBE</color>
-    <color name="light_gray">#DfDfDf</color>
+    <color name="light_gray">#EFEFEF</color>
+    <color name="black">#000000</color>
 </resources>

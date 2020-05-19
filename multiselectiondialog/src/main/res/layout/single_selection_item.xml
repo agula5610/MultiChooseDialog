@@ -7,19 +7,24 @@
     android:duplicateParentState="false"
     android:gravity="center_vertical"
     android:layoutMode="clipBounds"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp">
 
     <TextView
         android:id="@+id/id_treenode_label"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="测试"
+        android:layout_weight="1"
+        android:paddingRight="12dp"
+        android:text="19岁，安安在巴厘岛学水肺潜水，她永远也忘不了第一次背着潜水器材下水的那种紧张和刺激，后来她考了ow和aow，走走逛逛去了很多国家。"
         android:textColor="@color/standardContentText"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
     <RadioButton
         android:id="@+id/single_radio_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center" />
 
 </LinearLayout>

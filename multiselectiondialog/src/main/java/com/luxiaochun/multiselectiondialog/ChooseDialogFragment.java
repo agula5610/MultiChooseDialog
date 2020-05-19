@@ -1,5 +1,6 @@
 package com.luxiaochun.multiselectiondialog;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,7 +27,6 @@ import com.luxiaochun.multiselectiondialog.adapter.SingleAdapter;
 import com.luxiaochun.multiselectiondialog.adapter.TreeRecyclerAdapter;
 import com.luxiaochun.multiselectiondialog.base.Node;
 import com.luxiaochun.multiselectiondialog.listener.OnDialogListener;
-import com.luxiaochun.multiselectiondialog.utils.ColorUtil;
 import com.luxiaochun.multiselectiondialog.utils.DrawableUtil;
 import com.luxiaochun.multiselectiondialog.utils.MultiDialogUtils;
 
@@ -39,9 +39,8 @@ import java.util.List;
  * Date: 2018-08-21 09:34
  */
 public class ChooseDialogFragment extends AppCompatDialogFragment implements View.OnClickListener {
-    private int mDefaultTitleColor = 0x000000;
-    private int mDefaultItemColor = 0xBEBEBE;
-    private int mDefaultThemeColor = 0xFF4081;
+    private int mDefaultTitleColor = R.color.black;
+    private int mDefaultThemeColor = R.color.colorAccent;
     private SelectBean bean;
     private OnDialogListener onClickListener;
 
@@ -140,10 +139,10 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
             DialogType type = bean.getType();
             if (DialogType.SINGLEDEGREE_SINGLECHOOSE.equals(type)) {
                 mAdapter = new SingleAdapter(mDatas);
-            }  else if (DialogType.SINGLEDEGREE_MULTICHOOSE.equals(type)) {
+            } else if (DialogType.SINGLEDEGREE_MULTICHOOSE.equals(type)) {
                 ll_onclick.setVisibility(View.VISIBLE);
                 mAdapter = new MultiAdapter(mDatas);
-            }  else if (DialogType.SINGLEDEGREE_ORDER.equals(type)) {
+            } else if (DialogType.SINGLEDEGREE_ORDER.equals(type)) {
                 ll_onclick.setVisibility(View.VISIBLE);
                 mAdapter = new MultiOrderAdapter(mDatas, bean.getLimited());
             }
@@ -155,23 +154,21 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
     /**
      * 初始化主题色
      */
+    @SuppressLint("ResourceAsColor")
     private void initTheme() {
         final int titleColor = bean.getTitleColor();
         final int themeColor = bean.getmThemeColor();
         final int itemColor = bean.getmThemeColor();
-        if (-1 == titleColor){
-            tv_title.setTextColor(mDefaultTitleColor);
+        if (-1 == titleColor) {
+            tv_title.setTextColor(this.getResources().getColor(mDefaultTitleColor));
         } else {
-            tv_title.setTextColor(titleColor);
+            tv_title.setTextColor(this.getResources().getColor(titleColor));
         }
         if (-1 == themeColor) {
             //默认红色
             setDialogTheme(mDefaultThemeColor);
         } else {
             setDialogTheme(themeColor);
-        }
-        if (-1 == itemColor){
-            bean.setItemColor(mDefaultItemColor);
         }
     }
 
@@ -181,10 +178,10 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
      * @param color 主色
      */
     private void setDialogTheme(int color) {
-        btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), color));
-        btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), color));
-        btn_cancel.setTextColor(ColorUtil.isTextColorDark(color) ? Color.BLACK : Color.WHITE);
-        btn_confirm.setTextColor(ColorUtil.isTextColorDark(color) ? Color.BLACK : Color.WHITE);
+        btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.light_gray), Color.WHITE));
+        btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.light_gray), Color.WHITE));
+        btn_cancel.setTextColor(this.getResources().getColor(color));
+        btn_confirm.setTextColor(this.getResources().getColor(color));
     }
 
     private void initClickEvents() {
