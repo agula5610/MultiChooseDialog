@@ -1,5 +1,6 @@
 package com.luxiaochun.multiselectiondialog.adapter;
 
+import android.support.v7.widget.AppCompatCheckBox;
 import android.view.View;
 
 import com.luxiaochun.multiselectiondialog.R;
@@ -28,16 +29,16 @@ public class MultiAdapter extends AbsTreeRecyclerAdapter {
     @Override
     public void onBindViewHolder(final Node node, final RVBaseViewHolder holder, final int position) {
         holder.setText(R.id.id_treenode_label, node.getName());
-        holder.getCheckBox(R.id.cb_select_tree).setVisibility(View.VISIBLE);
+        final AppCompatCheckBox checkBox = holder.getCheckBox(R.id.cb_select_tree);
         if (node.isChecked()) {
-            holder.getCheckBox(R.id.cb_select_tree).setChecked(true);
+            checkBox.setChecked(true);
         } else {
-            holder.getCheckBox(R.id.cb_select_tree).setChecked(false);
+            checkBox.setChecked(false);
         }
-        holder.getCheckBox(R.id.cb_select_tree).setOnClickListener(new View.OnClickListener() {
+        checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setChecked(node, holder.getCheckBox(R.id.cb_select_tree).isChecked());
+                setChecked(node, checkBox.isChecked());
             }
         });
     }

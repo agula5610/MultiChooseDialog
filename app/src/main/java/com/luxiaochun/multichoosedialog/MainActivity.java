@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private Button normal4;
     private Button normal6;
     private SelectDialogManager singleManager;
+    private SelectDialogManager multiManager;
+    private SelectDialogManager orderManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,36 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .build();
+        multiManager = new SelectDialogManager
+                .Builder()
+                .setContext(MainActivity.this)
+                .setTitle("证件类型")
+                .setDatas(CardTypeEnum.getDatas())
+                .setType(DialogType.SINGLEDEGREE_MULTICHOOSE)
+                .setOnClickListener(new OnDialogListener() {
+                    @Override
+                    public void onConfirm(List<Node> list) {
+                        StringBuilder sb = new StringBuilder();
+                        for (Node node : list) {
+                            sb.append(node.getName() + ",");
+                        }
+                        Toast.makeText(MainActivity.this, sb.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .build();
+        orderManager = new SelectDialogManager
+                .Builder()
+                .setContext(MainActivity.this)
+                .setTitle("证件类型")
+                .setDatas(CardTypeEnum.getDatas())
+                .setType(DialogType.SINGLEDEGREE_ORDER)
+                .setOnClickListener(new OnDialogListener() {
+                    @Override
+                    public void onConfirm(List<Node> list) {
+
+                    }
+                })
+                .build();
     }
 
     private void initView() {
@@ -61,36 +93,14 @@ public class MainActivity extends AppCompatActivity {
         normal4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SelectDialogManager
-                        .Builder()
-                        .setTitle("证件类型")
-                        .setDatas(CardTypeEnum.getDatas())
-                        .setType(DialogType.SINGLEDEGREE_MULTICHOOSE)
-                        .setOnClickListener(new OnDialogListener() {
-                            @Override
-                            public void onConfirm(List<Node> list) {
-
-                            }
-                        })
-                        .build().show();
+                multiManager.show();
             }
         });
 
         normal6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SelectDialogManager
-                        .Builder()
-                        .setTitle("证件类型")
-                        .setDatas(CardTypeEnum.getDatas())
-                        .setType(DialogType.SINGLEDEGREE_ORDER)
-                        .setOnClickListener(new OnDialogListener() {
-                            @Override
-                            public void onConfirm(List<Node> list) {
-
-                            }
-                        })
-                        .build().show();
+                orderManager.show();
             }
         });
     }

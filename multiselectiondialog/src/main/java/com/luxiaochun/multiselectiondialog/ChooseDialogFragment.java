@@ -40,7 +40,6 @@ import java.util.List;
  */
 public class ChooseDialogFragment extends AppCompatDialogFragment implements View.OnClickListener {
     private int mDefaultTitleColor = R.color.black;
-    private int mDefaultThemeColor = R.color.colorAccent;
     private SelectBean bean;
     private OnDialogListener onClickListener;
 
@@ -125,7 +124,7 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
         dialogWindow.setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        lp.width = (int) (displayMetrics.widthPixels * 0.78f);
+        lp.width = (int) (displayMetrics.widthPixels * 0.72f);
         dialogWindow.setAttributes(lp);
     }
 
@@ -157,31 +156,22 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
     @SuppressLint("ResourceAsColor")
     private void initTheme() {
         final int titleColor = bean.getTitleColor();
-        final int themeColor = bean.getmThemeColor();
-        final int itemColor = bean.getmThemeColor();
         if (-1 == titleColor) {
             tv_title.setTextColor(this.getResources().getColor(mDefaultTitleColor));
         } else {
             tv_title.setTextColor(this.getResources().getColor(titleColor));
         }
-        if (-1 == themeColor) {
-            //默认红色
-            setDialogTheme(mDefaultThemeColor);
-        } else {
-            setDialogTheme(themeColor);
-        }
+        setDialogTheme();
     }
 
     /**
      * 设置
-     *
-     * @param color 主色
      */
-    private void setDialogTheme(int color) {
+    private void setDialogTheme() {
         btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.light_gray), Color.WHITE));
         btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.light_gray), Color.WHITE));
-        btn_cancel.setTextColor(this.getResources().getColor(color));
-        btn_confirm.setTextColor(this.getResources().getColor(color));
+        btn_cancel.setTextColor(this.getResources().getColor(R.color.themeColor));
+        btn_confirm.setTextColor(this.getResources().getColor(R.color.themeColor));
     }
 
     private void initClickEvents() {

@@ -25,7 +25,6 @@ public class SelectDialogManager {
         bean.setTitle(builder.getTitle());
         bean.setTitleColor(builder.getTitleColor());
         bean.setmDatas(builder.getDatas());
-        bean.setmThemeColor(builder.getmThemeColor());
         bean.setType(builder.getType());
         bean.setLimited(builder.getLimited());
         bean.setCanceledOnTouchOutside(builder.isCanceledOnTouchOutside());
@@ -57,7 +56,6 @@ public class SelectDialogManager {
         private int titleColor = -1;                        //标题颜色
         private DialogType type = DialogType.SINGLEDEGREE_SINGLECHOOSE; //类型(默认单级单选)
         private boolean canceledOnTouchOutside = true;      //是否点击外侧可取消
-        private int mThemeColor = -1;                       //主题颜色
         private int limited = 9;                            //排序限制(默认9个)
         private OnDialogListener onClickListener;
 
@@ -133,19 +131,8 @@ public class SelectDialogManager {
             return this;
         }
 
-        public int getmThemeColor() {
-            return mThemeColor;
-        }
-
-        public Builder setmThemeColor(int mThemeColor) {
-            this.mThemeColor = mThemeColor;
-            return this;
-        }
-
         public SelectDialogManager build() {
             return new SelectDialogManager(this);
         }
-
-
     }
 }

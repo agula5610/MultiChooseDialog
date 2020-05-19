@@ -1,6 +1,7 @@
 package com.luxiaochun.multiselectiondialog.adapter;
 
 import android.view.View;
+import android.widget.TextView;
 
 import com.luxiaochun.multiselectiondialog.R;
 import com.luxiaochun.multiselectiondialog.base.Node;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class MultiOrderAdapter extends AbsTreeRecyclerAdapter {
     private List<Node> list = new ArrayList<>();
-    private int limited = 9;
+    private int limited;
 
     public MultiOrderAdapter(List<Node> datas, int limited) {
         super(datas);
@@ -34,28 +35,28 @@ public class MultiOrderAdapter extends AbsTreeRecyclerAdapter {
     public void onBindViewHolder(final Node node, final RVBaseViewHolder holder, final int position) {
 
         holder.setText(R.id.id_treenode_label, node.getName());
-        holder.setText(R.id.id_treenode_order, "");
+        TextView tv = holder.getTextView(R.id.id_treenode_order);
         if (list.size() < limited) {
             for (int i = 0; i < list.size(); i++) {
                 if (node.getId().equals(list.get(i).getId())) {
                     if (i == 0) {
-                        holder.getTextView(R.id.id_treenode_order).setText(R.string.quan1);
+                        tv.setText(R.string.quan1);
                     } else if (i == 1) {
-                        holder.getTextView(R.id.id_treenode_order).setText(R.string.quan2);
+                        tv.setText(R.string.quan2);
                     } else if (i == 2) {
-                        holder.getTextView(R.id.id_treenode_order).setText(R.string.quan3);
+                        tv.setText(R.string.quan3);
                     } else if (i == 3) {
-                        holder.getTextView(R.id.id_treenode_order).setText(R.string.quan4);
+                        tv.setText(R.string.quan4);
                     } else if (i == 4) {
-                        holder.getTextView(R.id.id_treenode_order).setText(R.string.quan5);
+                        tv.setText(R.string.quan5);
                     } else if (i == 5) {
-                        holder.getTextView(R.id.id_treenode_order).setText(R.string.quan6);
+                        tv.setText(R.string.quan6);
                     } else if (i == 6) {
-                        holder.getTextView(R.id.id_treenode_order).setText(R.string.quan7);
+                        tv.setText(R.string.quan7);
                     } else if (i == 7) {
-                        holder.getTextView(R.id.id_treenode_order).setText(R.string.quan8);
+                        tv.setText(R.string.quan8);
                     } else if (i == 8) {
-                        holder.getTextView(R.id.id_treenode_order).setText(R.string.quan9);
+                        tv.setText(R.string.quan9);
                     }
                 }
             }
