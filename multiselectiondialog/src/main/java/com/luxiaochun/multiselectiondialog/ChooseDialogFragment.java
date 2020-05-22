@@ -139,10 +139,8 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
             if (DialogType.SINGLEDEGREE_SINGLECHOOSE.equals(type)) {
                 mAdapter = new SingleAdapter(mDatas);
             } else if (DialogType.SINGLEDEGREE_MULTICHOOSE.equals(type)) {
-                ll_onclick.setVisibility(View.VISIBLE);
                 mAdapter = new MultiAdapter(mDatas);
             } else if (DialogType.SINGLEDEGREE_ORDER.equals(type)) {
-                ll_onclick.setVisibility(View.VISIBLE);
                 mAdapter = new MultiOrderAdapter(mDatas, bean.getLimited());
             }
             recyclerview.setAdapter(mAdapter);

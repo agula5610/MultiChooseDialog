@@ -158,7 +158,7 @@ public class Node<T, B> implements Serializable {
      * 获取level
      */
     public int getLevel() {
-        return parent == null ? 0 : parent.getLevel() + 1;
+        return level;
     }
 
     public boolean isVisible() {
