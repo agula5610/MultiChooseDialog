@@ -70,7 +70,11 @@ public class MainActivity extends AppCompatActivity {
                 .setOnClickListener(new OnDialogListener() {
                     @Override
                     public void onConfirm(List<Node> list) {
-
+                        StringBuilder sb = new StringBuilder();
+                        for (Node node : list) {
+                            sb.append(node.getName() + ",");
+                        }
+                        Toast.makeText(MainActivity.this, sb.toString(), Toast.LENGTH_SHORT).show();
                     }
                 })
                 .build();

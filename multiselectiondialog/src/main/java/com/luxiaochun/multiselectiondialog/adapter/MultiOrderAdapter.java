@@ -7,6 +7,7 @@ import com.luxiaochun.multiselectiondialog.R;
 import com.luxiaochun.multiselectiondialog.base.Node;
 import com.luxiaochun.multiselectiondialog.viewholder.RVBaseViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,12 +46,13 @@ public class MultiOrderAdapter extends AbsTreeRecyclerAdapter {
                     }
                 }
                 boolean isCheck = node.isChecked();
+                int currentLevel = node.getLevel();
                 if (isCheck) {
                     for (Node nodecycle : mAllNodes) {
                         if (nodecycle.isChecked()) {
-                            if (nodecycle.getLevel() > node.getLevel()) {
+                            if (nodecycle.getLevel() > currentLevel) {
                                 nodecycle.setLevel(nodecycle.getLevel() - 1);
-                            } else if (nodecycle.getLevel() == node.getLevel()){
+                            } else if (nodecycle.getLevel() == currentLevel) {
                                 nodecycle.setLevel(0);
                                 node.setChecked(false);
                             }
@@ -66,5 +68,25 @@ public class MultiOrderAdapter extends AbsTreeRecyclerAdapter {
                 notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public List<Node> getCheckedNodeList() {
+        List<Node> list = new ArrayList<>();
+        for (Node node : mAllNodes) {
+            if (node.isChecked() && node.isLeaf()) {
+                list.add(node);
+            }
+        }
+        List<Node> orderList = new ArrayList<>();
+        for (int i = 1; i < list.size() + 1; i++) {
+            for (Node node : list) {
+                if (node.getLevel() == i) {
+                    orderList.add(node);
+                    break;
+                }
+            }
+        }
+        return orderList;
     }
 }
