@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -40,6 +39,7 @@ import java.util.List;
  */
 public class ChooseDialogFragment extends AppCompatDialogFragment implements View.OnClickListener {
     private int mDefaultTitleColor = R.color.black;
+    private int mDefaultThemeColor = R.color.themeColor;
     private SelectBean bean;
     private OnDialogListener onClickListener;
 
@@ -48,8 +48,14 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
     private LinearLayout ll_onclick;
     private Button btn_cancel;
     private Button btn_confirm;
+
     private Activity mActivity;
     private TreeRecyclerAdapter mAdapter;
+
+    private boolean isViewSet;  //view是否已经加载好
+    DisplayMetrics displayMetrics;
+    Window dialogWindow;
+
 
     public static ChooseDialogFragment newInstance(Bundle args) {
         ChooseDialogFragment fragment = new ChooseDialogFragment();
@@ -68,29 +74,20 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.MultiSelectionDialog);
         mActivity = getActivity();
+        displayMetrics = getContext().getResources().getDisplayMetrics();
+
+        bean = (SelectBean) getArguments().getSerializable(SelectDialogManager.TAG);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        getDialog().setCanceledOnTouchOutside(bean.isCanceledOnTouchOutside());
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.multi_selection_dialog, container);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        bean = (SelectBean) getArguments().getSerializable(SelectDialogManager.TAG);
+        View view = inflater.inflate(R.layout.luxiaochun_selection_dialog, container);
         initView(view);
-        //设置主题色
         initTheme();
         initData();
+        return view;
     }
-
 
     private void initView(final View view) {
         tv_title = view.findViewById(R.id.tv_title);
@@ -104,14 +101,15 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop,
                                        int oldRight, int oldBottom) {
-                int height = v.getHeight();     //此处的view 和v 其实是同一个控件
-                DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-                int needHeight = (int) (displayMetrics.heightPixels * 0.68f);
-
-                if (height > needHeight) {
-                    //注意：这里的 LayoutParams 必须是 FrameLayout的！！
-                    v.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-                            needHeight));
+                if (!isViewSet) {
+                    int height = v.getHeight();     //此处的view 和v 其实是同一个控件
+                    int needHeight = (int) (displayMetrics.heightPixels * 0.60f);
+                    isViewSet = true;
+                    if (height > needHeight) {
+                        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+                        lp.height = needHeight;
+                        dialogWindow.setAttributes(lp);
+                    }
                 }
             }
         });
@@ -120,12 +118,13 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Window dialogWindow = getDialog().getWindow();
+        dialogWindow = getDialog().getWindow();
         dialogWindow.setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        lp.width = (int) (displayMetrics.widthPixels * 0.72f);
+        lp.width = (int) (displayMetrics.widthPixels * 0.68f);
+//        lp.height = lp.height > displayMetrics.heightPixels * 0.68f ? (int) (displayMetrics.heightPixels * 0.68f) : lp.height;
         dialogWindow.setAttributes(lp);
+        getDialog().setCanceledOnTouchOutside(bean.isCanceledOnTouchOutside());
     }
 
     private void initData() {
@@ -137,11 +136,11 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
             List<Node> mDatas = bean.getmDatas();
             DialogType type = bean.getType();
             if (DialogType.SINGLEDEGREE_SINGLECHOOSE.equals(type)) {
-                mAdapter = new SingleAdapter(mDatas);
+                mAdapter = new SingleAdapter(mDatas, bean.getThemeColor() == -1 ? mDefaultThemeColor : bean.getThemeColor());
             } else if (DialogType.SINGLEDEGREE_MULTICHOOSE.equals(type)) {
-                mAdapter = new MultiAdapter(mDatas);
+                mAdapter = new MultiAdapter(mDatas, bean.getThemeColor() == -1 ? mDefaultThemeColor : bean.getThemeColor());
             } else if (DialogType.SINGLEDEGREE_ORDER.equals(type)) {
-                mAdapter = new MultiOrderAdapter(mDatas, bean.getLimited());
+                mAdapter = new MultiOrderAdapter(mDatas, bean.getLimited(), bean.getThemeColor() == -1 ? mDefaultThemeColor : bean.getThemeColor());
             }
             recyclerview.setAdapter(mAdapter);
             initClickEvents();
@@ -154,23 +153,25 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
     @SuppressLint("ResourceAsColor")
     private void initTheme() {
         final int titleColor = bean.getTitleColor();
+        final int themeColor = bean.getThemeColor();
         if (-1 == titleColor) {
             tv_title.setTextColor(this.getResources().getColor(mDefaultTitleColor));
         } else {
             tv_title.setTextColor(this.getResources().getColor(titleColor));
         }
-        setDialogTheme();
+        if (-1 == themeColor) {
+            btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.light_gray), Color.WHITE));
+            btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.light_gray), Color.WHITE));
+            btn_cancel.setTextColor(this.getResources().getColor(R.color.themeColor));
+            btn_confirm.setTextColor(this.getResources().getColor(R.color.themeColor));
+        } else {
+            btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.light_gray), Color.WHITE));
+            btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.light_gray), Color.WHITE));
+            btn_cancel.setTextColor(this.getResources().getColor(themeColor));
+            btn_confirm.setTextColor(this.getResources().getColor(themeColor));
+        }
     }
 
-    /**
-     * 设置
-     */
-    private void setDialogTheme() {
-        btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.light_gray), Color.WHITE));
-        btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.light_gray), Color.WHITE));
-        btn_cancel.setTextColor(this.getResources().getColor(R.color.themeColor));
-        btn_confirm.setTextColor(this.getResources().getColor(R.color.themeColor));
-    }
 
     private void initClickEvents() {
         btn_cancel.setOnClickListener(this);

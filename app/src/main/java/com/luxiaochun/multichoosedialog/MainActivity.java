@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
                 .setContext(MainActivity.this)
                 .setTitle("证件类型")
                 .setDatas(CardTypeEnum.getDatas())
+                .setTitleColor(R.color.colorAccent)
+                .setThemeColor(R.color.colorAccent)
                 .setOnClickListener(new OnDialogListener() {
                     @Override
                     public void onConfirm(List<Node> list) {
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 .setContext(MainActivity.this)
                 .setTitle("证件类型")
                 .setDatas(CardTypeEnum.getDatas())
+                .setTitleColor(R.color.colorAccent)
+                .setThemeColor(R.color.colorAccent)
                 .setType(DialogType.SINGLEDEGREE_MULTICHOOSE)
                 .setOnClickListener(new OnDialogListener() {
                     @Override
@@ -66,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 .setContext(MainActivity.this)
                 .setTitle("证件类型")
                 .setDatas(CardTypeEnum.getDatas())
+                .setTitleColor(R.color.colorAccent)
+                .setThemeColor(R.color.colorAccent)
                 .setType(DialogType.SINGLEDEGREE_ORDER)
                 .setOnClickListener(new OnDialogListener() {
                     @Override

@@ -20,7 +20,7 @@
         android:layout_weight="1"
         android:paddingRight="12dp"
         android:textColor="@color/standardContentText"
-        android:textSize="19sp" />
+        android:textSize="20sp" />
 
 
     <android.support.v7.widget.AppCompatCheckBox

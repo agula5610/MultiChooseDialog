@@ -20,6 +20,7 @@ public class SelectBean implements Serializable {
     private List<Node> mDatas;                          //数据流
     //选填
     private int titleColor;                             //标题颜色
+    private int themeColor;                       //主题颜色，包括单选、多选框的颜色，按钮颜色等
     private DialogType type;                            //类型
     private boolean canceledOnTouchOutside = true;      //是否点击外侧可取消
     private int limited;                                //排序限制
@@ -54,6 +55,14 @@ public class SelectBean implements Serializable {
 
     public void setTitleColor(int titleColor) {
         this.titleColor = titleColor;
+    }
+
+    public int getThemeColor() {
+        return themeColor;
+    }
+
+    public void setThemeColor(int themeColor) {
+        this.themeColor = themeColor;
     }
 
     public DialogType getType() {

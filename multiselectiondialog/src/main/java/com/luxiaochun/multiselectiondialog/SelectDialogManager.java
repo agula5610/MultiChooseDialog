@@ -15,7 +15,7 @@ import java.util.List;
  * Date: 2018-08-21 09:38
  */
 public class SelectDialogManager {
-    public static final String TAG = SelectDialogManager.class.getSimpleName();
+    static final String TAG = SelectDialogManager.class.getSimpleName();
     private SelectBean bean;
     private OnDialogListener onClickListener;
 
@@ -23,9 +23,10 @@ public class SelectDialogManager {
         bean = new SelectBean();
         bean.setContext(builder.getContext());
         bean.setTitle(builder.getTitle());
-        bean.setTitleColor(builder.getTitleColor());
-        bean.setmDatas(builder.getDatas());
         bean.setType(builder.getType());
+        bean.setTitleColor(builder.getTitleColor());
+        bean.setThemeColor(builder.getThemeColor());
+        bean.setmDatas(builder.getDatas());
         bean.setLimited(builder.getLimited());
         bean.setCanceledOnTouchOutside(builder.isCanceledOnTouchOutside());
         onClickListener = builder.getOnClickListener();
@@ -53,8 +54,11 @@ public class SelectDialogManager {
         private String title;                               //标题
         private List<Node> mDatas;                          //数据流
         //选填
-        private int titleColor = -1;                        //标题颜色
         private DialogType type = DialogType.SINGLEDEGREE_SINGLECHOOSE; //类型(默认单级单选)
+
+        private int titleColor = -1;                        //标题颜色
+        private int themeColor  = -1;                       //主题颜色，包括单选、多选框的颜色，按钮颜色等
+
         private boolean canceledOnTouchOutside = true;      //是否点击外侧可取消
         private int limited = 9;                            //排序限制(默认9个)
         private OnDialogListener onClickListener;
@@ -83,6 +87,15 @@ public class SelectDialogManager {
 
         public Builder setTitleColor(int titleColor) {
             this.titleColor = titleColor;
+            return this;
+        }
+
+        public int getThemeColor() {
+            return themeColor;
+        }
+
+        public Builder setThemeColor(int themeColor) {
+            this.themeColor = themeColor;
             return this;
         }
 

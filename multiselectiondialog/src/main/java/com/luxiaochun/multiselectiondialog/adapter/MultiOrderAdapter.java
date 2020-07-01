@@ -1,5 +1,6 @@
 package com.luxiaochun.multiselectiondialog.adapter;
 
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,15 +19,17 @@ import java.util.List;
  */
 public class MultiOrderAdapter extends AbsTreeRecyclerAdapter {
     private int limited;
+    private int themeColor;
 
-    public MultiOrderAdapter(List<Node> datas, int limited) {
+    public MultiOrderAdapter(List<Node> datas, int limited, int themeColor) {
         super(datas);
         this.limited = limited;
+        this.themeColor = themeColor;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.multi_selection_order_item;
+        return R.layout.luxiaochun_multi_selection_order_item;
     }
 
     @Override
@@ -35,7 +38,7 @@ public class MultiOrderAdapter extends AbsTreeRecyclerAdapter {
         holder.setText(R.id.id_treenode_label, node.getName());
         TextView tv = holder.getTextView(R.id.id_treenode_order);
         tv.setText(node.getLevel() == 0 ? "" : "" + node.getLevel());
-
+        tv.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), themeColor));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

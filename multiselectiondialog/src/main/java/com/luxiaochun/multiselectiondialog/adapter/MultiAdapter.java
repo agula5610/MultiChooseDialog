@@ -1,5 +1,9 @@
 package com.luxiaochun.multiselectiondialog.adapter;
 
+import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.view.View;
 
@@ -17,19 +21,39 @@ import java.util.List;
  * Copyright: (C)HESC Co.,Ltd. 2016. All rights reserved.
  */
 public class MultiAdapter extends AbsTreeRecyclerAdapter {
-    public MultiAdapter(List<Node> datas) {
+    private int themeColor;
+    public MultiAdapter(List<Node> datas, int themeColor) {
         super(datas);
+        this.themeColor = themeColor;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.multi_selection_item;
+        return R.layout.luxiaochun_multi_selection_item;
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(final Node node, final RVBaseViewHolder holder, final int position) {
         holder.setText(R.id.id_treenode_label, node.getName());
         final AppCompatCheckBox checkBox = holder.getCheckBox(R.id.cb_select_tree);
+        // 动态设置AppCompatCheckBox的选中颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int uncheckedColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.gray);
+            int checkedColor = ContextCompat.getColor(holder.itemView.getContext(), themeColor);
+            ColorStateList colorStateList = new ColorStateList(
+                    new int[][]{
+                            new int[]{-android.R.attr.state_checked}, //未选中
+                            new int[]{android.R.attr.state_checked} //选中
+                    },
+                    new int[]{
+                            uncheckedColor,//未选中
+                            checkedColor //选中
+
+                    }
+            );
+            checkBox.setSupportButtonTintList(colorStateList);
+        }
         if (node.isChecked()) {
             checkBox.setChecked(true);
         } else {

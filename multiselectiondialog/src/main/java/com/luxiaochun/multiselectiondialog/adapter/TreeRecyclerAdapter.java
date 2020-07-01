@@ -47,10 +47,11 @@ public abstract class TreeRecyclerAdapter extends RecyclerView.Adapter<RVBaseVie
      * 设置单选
      *
      * @param node
+     * @param checkedNode
      */
-    protected void setRadioChecked(final Node node) {
-        for (Node vNode : mAllNodes) {
-            vNode.setChecked(false);
+    protected void setRadioChecked(final Node node, Node checkedNode) {
+        if (checkedNode != null){
+            checkedNode.setChecked(false);
         }
         node.setChecked(true);
         notifyDataSetChanged();
