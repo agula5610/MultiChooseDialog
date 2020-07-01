@@ -39,7 +39,7 @@ public class MultiAdapter extends AbsTreeRecyclerAdapter {
         final AppCompatCheckBox checkBox = holder.getCheckBox(R.id.cb_select_tree);
         // 动态设置AppCompatCheckBox的选中颜色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int uncheckedColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.gray);
+            int uncheckedColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.luxiaochun_gray);
             int checkedColor = ContextCompat.getColor(holder.itemView.getContext(), themeColor);
             ColorStateList colorStateList = new ColorStateList(
                     new int[][]{

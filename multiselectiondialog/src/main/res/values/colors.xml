@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="themeColor">#458B74</color>
-    <color name="standardContentText">#666666</color>
+    <color name="luxiaochun_themeColor">#458B74</color>
+    <color name="luxiaochun_standardContentText">#888888</color>
     <color name="white">#FFFFFF</color>
-    <color name="gray">#BEBEBE</color>
-    <color name="light_gray">#EFEFEF</color>
+    <color name="luxiaochun_gray">#BEBEBE</color>
+    <color name="luxiaochun_light_gray">#EFEFEF</color>
     <color name="black">#000000</color>
 </resources>

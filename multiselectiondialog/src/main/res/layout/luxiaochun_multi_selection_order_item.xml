@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/multi_dialog_effect"
+    android:background="@drawable/luxiaochun_dialog_item_bg"
     android:descendantFocusability="blocksDescendants"
     android:duplicateParentState="false"
     android:orientation="horizontal"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:paddingRight="12dp"
-        android:textColor="@color/standardContentText"
+        android:textColor="@color/luxiaochun_standardContentText"
         android:textSize="20sp" />
 
 
@@ -27,6 +27,6 @@
         android:id="@+id/id_treenode_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/themeColor"
+        android:textColor="@color/luxiaochun_themeColor"
         android:textSize="16dp" />
 </LinearLayout>

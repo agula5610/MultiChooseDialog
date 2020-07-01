@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class ChooseDialogFragment extends AppCompatDialogFragment implements View.OnClickListener {
     private int mDefaultTitleColor = R.color.black;
-    private int mDefaultThemeColor = R.color.themeColor;
+    private int mDefaultThemeColor = R.color.luxiaochun_themeColor;
     private SelectBean bean;
     private OnDialogListener onClickListener;
 
@@ -160,13 +160,13 @@ public class ChooseDialogFragment extends AppCompatDialogFragment implements Vie
             tv_title.setTextColor(this.getResources().getColor(titleColor));
         }
         if (-1 == themeColor) {
-            btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.light_gray), Color.WHITE));
-            btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.light_gray), Color.WHITE));
-            btn_cancel.setTextColor(this.getResources().getColor(R.color.themeColor));
-            btn_confirm.setTextColor(this.getResources().getColor(R.color.themeColor));
+            btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.luxiaochun_light_gray), Color.WHITE));
+            btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.luxiaochun_light_gray), Color.WHITE));
+            btn_cancel.setTextColor(this.getResources().getColor(R.color.luxiaochun_themeColor));
+            btn_confirm.setTextColor(this.getResources().getColor(R.color.luxiaochun_themeColor));
         } else {
-            btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.light_gray), Color.WHITE));
-            btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.light_gray), Color.WHITE));
+            btn_cancel.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.luxiaochun_light_gray), Color.WHITE));
+            btn_confirm.setBackground(DrawableUtil.getDrawable(MultiDialogUtils.dip2px(4, getActivity()), this.getResources().getColor(R.color.luxiaochun_light_gray), Color.WHITE));
             btn_cancel.setTextColor(this.getResources().getColor(themeColor));
             btn_confirm.setTextColor(this.getResources().getColor(themeColor));
         }

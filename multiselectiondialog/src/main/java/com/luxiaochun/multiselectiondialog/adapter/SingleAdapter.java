@@ -45,7 +45,7 @@ public class SingleAdapter extends AbsTreeRecyclerAdapter {
         // 动态设置radiobutton的选中颜色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             RadioButton rb = holder.getRadioButton(R.id.single_radio_btn);
-            int uncheckedColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.gray);
+            int uncheckedColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.luxiaochun_gray);
             int checkedColor = ContextCompat.getColor(holder.itemView.getContext(), themeColor);
             ColorStateList colorStateList = new ColorStateList(
                     new int[][]{
