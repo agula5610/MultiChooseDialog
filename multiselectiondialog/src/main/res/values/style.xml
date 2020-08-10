@@ -20,5 +20,18 @@
         <item name="colorControlActivated">@color/luxiaochun_themeColor</item>
     </style>
 
+    <style name="dialog_full">
+        <item name="android:windowIsFloating">true</item>   <!--是否悬浮在界面上-->
+        <item name="android:windowIsTranslucent">true</item>   <!--是否半透明-->
+        <item name="android:windowNoTitle">true</item> <!--是否有标题-->
+        <item name="android:windowBackground">@android:color/transparent</item>  <!--窗口背景色透明-->
+        <item name="android:backgroundDimEnabled">true</item>  <!--背景是否模糊显示-->
+    </style>
+
+    <style name="main_menu_animstyle">
+        <item name="android:windowEnterAnimation">@anim/bottom_dialog_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/bottom_dialog_out_anim</item>
+    </style>
+
 
 </resources>

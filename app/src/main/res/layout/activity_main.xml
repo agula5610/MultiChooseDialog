@@ -30,7 +30,17 @@
             android:layout_height="wrap_content"
             android:text="限制排序多选单级" />
 
+        <Button
+            android:id="@+id/bottomDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="底部dialog" />
 
+        <Button
+            android:id="@+id/infoDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="展示信息dialog" />
     </LinearLayout>
 
 

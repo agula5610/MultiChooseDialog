@@ -6,4 +6,10 @@
     <color name="luxiaochun_gray">#BEBEBE</color>
     <color name="luxiaochun_light_gray">#EFEFEF</color>
     <color name="black">#000000</color>
+
+    <color name="dialog_title_bgc">#f5f5f5</color>
+
+    <color name="dialog_btn_bgc">#1d82d1</color>
+    <color name="dialog_btn_bgc_pressed">#086ab7</color>
+    <color name="dialog_item_btn_bgc">#e9f5ff</color>
 </resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <RadioButton
+        android:id="@+id/dialog_radio_btn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:button="@null"
+        android:background="@drawable/bottom_dialog_rb_bg"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/dialog_road_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="4dp"
+        android:gravity="center_vertical"
+        android:text=""
+        android:textColor="@color/black"
+        android:layout_marginRight="8dp"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:id="@+id/dialog_road_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_dialog_item_bg_cornor"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="4dp" >
+
+        <!--<ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/a1" />-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="下级"
+            android:textColor="@color/dialog_btn_bgc" />
+    </LinearLayout>
+
+</LinearLayout>
