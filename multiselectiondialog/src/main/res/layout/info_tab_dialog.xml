@@ -20,7 +20,7 @@
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/dialog_roader_cancel"
-            android:text="所属区域：医药高新区凤凰街道"
+            android:text="提示"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -53,7 +53,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="总 路 长："
+                android:text="名称："
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -61,7 +61,7 @@
                 android:id="@+id/dialog_roader_zlz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="总 路 长："
+                android:text="名称"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -120,7 +120,7 @@
                         android:gravity="center"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="一级路长"
+                        android:text="一级目录"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -163,7 +163,7 @@
                         android:gravity="center"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="二级路长"
+                        android:text="二级目录"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
                     <View
@@ -213,7 +213,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="道路名称："
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -221,7 +221,7 @@
                 android:id="@+id/dialog_roader_roadName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="凤凰路南侧（兴泰南路-青年路）"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -244,7 +244,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="街道人员："
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -252,7 +252,7 @@
                     android:id="@+id/dialog_roader_person"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="梁书芳"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -269,7 +269,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="执法管理："
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -281,7 +281,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="街道城管"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -296,7 +296,7 @@
                             android:id="@+id/dialog_roader_chengguan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="胡永华（兴泰南路-银丰路）  15961051010"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -304,7 +304,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="高新区城管执法中队"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -319,7 +319,7 @@
                             android:id="@+id/dialog_roader_zhongdui"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="胡永华（兴泰南路-银丰路）  15961051010"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -346,7 +346,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="社区人员："
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -354,7 +354,7 @@
                     android:id="@+id/dialog_roader_community"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="梁书芳"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -371,7 +371,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="数字城管："
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -379,7 +379,7 @@
                     android:id="@+id/dialog_roader_digitcg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="梁书芳"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -396,7 +396,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="环境卫生："
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -404,7 +404,7 @@
                     android:id="@+id/dialog_roader_weisheng"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="梁书芳"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="16sp" />
             </LinearLayout>
