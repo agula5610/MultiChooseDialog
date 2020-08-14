@@ -1,6 +1,6 @@
-package com.luxiaochun.multiselectiondialog;
+package com.luxiaochun.multiselectiondialog.choicedialog;
 
-import android.support.v4.app.FragmentActivity;
+import android.content.Context;
 
 import com.luxiaochun.multiselectiondialog.base.Node;
 
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class SelectBean implements Serializable {
     //必填
-    private FragmentActivity context;
+    private Context context;
     private String title;                               //标题
     private List<Node> mDatas;                          //数据流
     //选填
@@ -25,11 +25,11 @@ public class SelectBean implements Serializable {
     private boolean canceledOnTouchOutside = true;      //是否点击外侧可取消
     private int limited;                                //排序限制
 
-    public FragmentActivity getContext() {
+    public Context getContext() {
         return context;
     }
 
-    public void setContext(FragmentActivity context) {
+    public void setContext(Context context) {
         this.context = context;
     }
 

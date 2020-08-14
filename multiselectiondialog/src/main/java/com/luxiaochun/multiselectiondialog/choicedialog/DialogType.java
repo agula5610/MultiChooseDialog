@@ -1,4 +1,4 @@
-package com.luxiaochun.multiselectiondialog;
+package com.luxiaochun.multiselectiondialog.choicedialog;
 
 import java.io.Serializable;
 

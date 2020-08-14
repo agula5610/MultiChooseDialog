@@ -17,19 +17,22 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.luxiaochun.multiselectiondialog.base.RoadNode;
+import com.luxiaochun.multiselectiondialog.base.Node;
 import com.luxiaochun.multiselectiondialog.utils.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BottomRoadDialog extends Dialog {
+/**
+ * 一个底部的dialog，用来选择地区等三级的界面
+ */
+public class BottomMultiDialog extends Dialog {
 
-	private List<RoadNode> firstList;
-	private List<RoadNode> secondList = new ArrayList();
-	private List<RoadNode> thirtList = new ArrayList();
+	private List<Node> firstList;
+	private List<Node> secondList = new ArrayList();
+	private List<Node> thirtList = new ArrayList();
 	private RoadAdapter dialogAdapter;
-	private OnRoadSelectListener mListener;
+	private OnItemSelectListener mListener;
 	private Activity mActivity;
 	private int currentLevel = 1;
 	private Button dialog_cancel;
@@ -49,30 +52,30 @@ public class BottomRoadDialog extends Dialog {
 	private View secondRoadLine2;
 	private View thirdRoadLine2;
 
-	public interface OnRoadSelectListener {
-		void onRoadClick(RoadNode roadNode);
+	public interface OnItemSelectListener {
+		void onItemSelect(Node node);
 
-		void onFirstPick(RoadNode roadNode);
+		void onFirstPick(Node node);
 
-		void onSecondPick(RoadNode roadNode);
+		void onSecondPick(Node node);
 	}
 
 	public int getCurrentLevel() {
 		return currentLevel;
 	}
 
-	public void setSecondList(List<RoadNode> secondList) {
+	public void setSecondList(List<Node> secondList) {
 		this.secondList = secondList;
 		change2Level2();
 	}
 
-	public void setThirtList(List<RoadNode> thirtList) {
+	public void setThirtList(List<Node> thirtList) {
 		this.thirtList = thirtList;
 		change2Level3();
 	}
 
-	public BottomRoadDialog(Activity activity, List<RoadNode> names,
-			OnRoadSelectListener listener) {
+	public BottomMultiDialog(Activity activity, List<Node> names,
+							 OnItemSelectListener listener) {
 		super(activity, R.style.dialog_full);
 		mActivity = activity;
 		mListener = listener;
@@ -131,11 +134,11 @@ public class BottomRoadDialog extends Dialog {
 
 			@Override
 			public void onClick(View v) {
-				RoadNode roadNode = dialogAdapter.getCheckedNode();
-				if (roadNode == null){
+				Node node = dialogAdapter.getCheckedNode();
+				if (node == null){
 					Toast.makeText(mActivity, "请选择一条道路", Toast.LENGTH_SHORT).show();
 				} else {
-					mListener.onRoadClick(roadNode);
+					mListener.onItemSelect(node);
 					dismiss();
 				}
 			}
@@ -217,26 +220,26 @@ public class BottomRoadDialog extends Dialog {
 	}
 
 	private class RoadAdapter extends BaseAdapter {
-		private List<RoadNode> datas;
+		private List<Node> datas;
 		private Viewholder viewholder;
 		private LayoutInflater layoutInflater;
-		private RoadNode secondCheckedNode; // 记录二级选中的项目
-		private RoadNode thirdCheckedNode; // 记录三级级选中的项目
+		private Node secondCheckedNode; // 记录二级选中的项目
+		private Node thirdCheckedNode; // 记录三级级选中的项目
 
-		public void setSecondCheckedNode(RoadNode secondCheckedNode) {
+		public void setSecondCheckedNode(Node secondCheckedNode) {
 			this.secondCheckedNode = secondCheckedNode;
 		}
 
-		public void setThirdCheckedNode(RoadNode thirdCheckedNode) {
+		public void setThirdCheckedNode(Node thirdCheckedNode) {
 			this.thirdCheckedNode = thirdCheckedNode;
 		}
 
-		public RoadAdapter(List<RoadNode> datas) {
+		public RoadAdapter(List<Node> datas) {
 			this.datas = datas;
 			this.layoutInflater = mActivity.getLayoutInflater();
 		}
 
-		public void setDatas(List<RoadNode> datas) {
+		public void setDatas(List<Node> datas) {
 			this.datas = datas;
 			notifyDataSetChanged();
 		}
@@ -272,7 +275,7 @@ public class BottomRoadDialog extends Dialog {
 			} else {
 				viewholder = (Viewholder) convertView.getTag();
 			}
-			final RoadNode node = datas.get(position);
+			final Node node = datas.get(position);
 			if (currentLevel == 1) {
 				viewholder.rb.setVisibility(View.GONE);
 				viewholder.subLl.setVisibility(View.VISIBLE);
@@ -284,7 +287,7 @@ public class BottomRoadDialog extends Dialog {
 				viewholder.subLl.setVisibility(View.GONE);
 			}
 			viewholder.tv.setText(node.getName());
-			if (node.isCheck()) {
+			if (node.isChecked()) {
 				viewholder.rb.setChecked(true);
 			} else {
 				viewholder.rb.setChecked(false);
@@ -321,7 +324,7 @@ public class BottomRoadDialog extends Dialog {
 			return convertView;
 		}
 
-		public RoadNode getCheckedNode() {
+		public Node getCheckedNode() {
 			if (currentLevel == 2) {
 				return secondCheckedNode;
 			} else if (currentLevel == 3) {
@@ -330,11 +333,11 @@ public class BottomRoadDialog extends Dialog {
 			return null;
 		}
 
-		protected void setRadioChecked(final RoadNode node, RoadNode checkedNode) {
+		protected void setRadioChecked(final Node node, Node checkedNode) {
 			if (checkedNode != null) {
-				checkedNode.setCheck(false);
+				checkedNode.setChecked(false);
 			}
-			node.setCheck(true);
+			node.setChecked(true);
 			notifyDataSetChanged();
 		}
 	}
@@ -343,6 +346,5 @@ public class BottomRoadDialog extends Dialog {
 		public RadioButton rb;
 		public TextView tv;
 		public LinearLayout subLl;
-
 	}
 }
